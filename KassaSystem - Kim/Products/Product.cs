@@ -11,12 +11,17 @@ namespace KassaSystem___Kim.Products
         public decimal ProductPrice { get; set; }
         public string PriceType { get; set; }
 
+
+        public Product()
+        {
+            
+        }
         public Product(int productId, string productName, decimal productPrice, string priceType)
         {
             ProductId = productId;
             ProductName = productName;
             ProductPrice = productPrice;
-            PriceType = priceType;
+            PriceType = priceType.ToUpper();
         }
     }
 }

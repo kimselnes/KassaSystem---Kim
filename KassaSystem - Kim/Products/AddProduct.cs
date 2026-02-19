@@ -55,14 +55,53 @@ namespace KassaSystem___Kim.Products
             {
                 File.Create(filePath).Close();
                 File.WriteAllText(filePath, 
-                    "ProductId;ProductName;ProductPrice,PriceType");
+                    "ProductId;ProductName;ProductPrice,PriceType"
+                    + Environment.NewLine);
             }
             if (File.Exists(filePath))
             {
-                File.AppendAllText(filePath, $"{product.ProductId};{product.ProductName};" +
-                    $"{product.ProductPrice};{product.PriceType}");
-                // Vet inte om den är stängd. Jag tror det då det inte är en STREAM.
+                var textToAppend = $"{product.ProductId};{product.ProductName};" +
+                    $"{product.ProductPrice};{product.PriceType}";
+                File.AppendAllText(filePath, textToAppend + Environment.NewLine);
+
+
+
+
+
+
+                //using (StreamWriter sWriter = new StreamWriter(filePath))
+                //{
+                //    sWriter.WriteLine($"{product.ProductId};{product.ProductName};" +
+                //    $"{product.ProductPrice};{product.PriceType}");
+                //}
+
+                //File.AppendAllText(filePath, $"{product.ProductId};{product.ProductName};" +
+                //    $"{product.ProductPrice};{product.PriceType}");
             }
+        }
+
+        public static void ReadAllProducts()
+        {
+            //List<Product> products = new List<Product>();
+            //List<string> lines = File.ReadAllLines(filePath).ToList();
+
+            //foreach (var line in lines)
+            //{
+            //    string[] entries = line.Split(";");
+
+            //    Product newProduct = new Product();
+
+            //    newProduct.ProductId = Convert.ToInt32(entries[0]);
+            //    newProduct.ProductName = entries[1];
+            //    newProduct.ProductPrice = Convert.ToDecimal(entries[2]);
+            //    newProduct.PriceType = entries[3];
+            //}
+
+
+            //foreach (var prod in products)
+            //{
+
+            //}
         }
     }
 }
