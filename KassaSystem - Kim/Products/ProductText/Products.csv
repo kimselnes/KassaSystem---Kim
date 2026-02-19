@@ -1,0 +1,4 @@
+ProductId;ProductName;ProductPrice,PriceType
+300;Bananer;12,50;ST
+400;Köttfärs;82,50;KG900;
+Potatis;20,23;KG300;Bananer;12,50;st
