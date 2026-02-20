@@ -33,6 +33,17 @@ namespace KassaSystem___Kim.Receipt
             Console.WriteLine("KVITTO");
             Console.WriteLine(DateAndTime);
 
+                foreach (var product in list)
+                {
+                    Console.WriteLine(
+                        $"{product.ProductName} {amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * amount}");
+                    TotalPrice += (product.ProductPrice * amount);
+                }
+
+            Console.WriteLine($"Total: {TotalPrice} kr");
+
             //if (list == null || amount == 0)
             //{
             //    foreach (var product in list)
@@ -55,16 +66,6 @@ namespace KassaSystem___Kim.Receipt
             //    //    TotalPrice += (product.ProductPrice * amount);
             //    //}
             //}
-                foreach (var product in list)
-                {
-                    Console.WriteLine(
-                        $"{product.ProductName} {amount} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * amount}");
-                    TotalPrice += (product.ProductPrice * amount);
-                }
-
-            Console.WriteLine($"Total: {TotalPrice} kr");
         }
 
         //public List<Product> AddProductToList(Product product, int amount)

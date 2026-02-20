@@ -114,6 +114,8 @@ namespace KassaSystem___Kim
                 //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
             }
 
+
+
             Console.WriteLine();
             Utility.WaitForKeyPress();
             RunMainMenu();
