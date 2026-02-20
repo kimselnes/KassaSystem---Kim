@@ -10,10 +10,11 @@ namespace KassaSystem___Kim.Products
         public string ProductName { get; set; }
         public decimal ProductPrice { get; set; }
         public string PriceType { get; set; }
-
+        public int Amount { get; set; }
 
         public Product()
-        {            
+        {     
+            Amount = 0;
         }
         public Product(int productId, string productName, decimal productPrice, string priceType)
         {

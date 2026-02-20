@@ -17,35 +17,65 @@ namespace KassaSystem___Kim.Receipt
         public Receipts()
         {
             DateAndTime = DateTime.Now;
-        }
-        public Receipts(List<Product> productList, int amount)
-        {
-            DateAndTime = DateTime.Now;
-            ProductList = productList;
-            Amount = amount;
-            //TotalPrice = totalPrice;
             Separator = "********************";
         }
+        //public Receipts(List<Product> productList, int amount)
+        //{
+        //    DateAndTime = DateTime.Now;
+        //    ProductList = productList;
+        //    Amount = amount;
+        //    //TotalPrice = totalPrice;
+        //    Separator = "********************";
+        //}
 
-        public void PrintToScreen()
+        public void PrintToScreen(List<Product> list, int amount)
         {
             Console.WriteLine("KVITTO");
             Console.WriteLine(DateAndTime);
 
-            if (ProductList != null)
-            {
-                foreach (var product in ProductList)
+            //if (list == null || amount == 0)
+            //{
+            //    foreach (var product in list)
+            //    {
+            //        Console.WriteLine(
+            //            $"{product.ProductName} {Amount} * " +
+            //            $"{product.ProductPrice} = " +
+            //            $"{product.ProductPrice * Amount}");
+            //        TotalPrice += (product.ProductPrice * Amount);
+            //    }
+            //}
+            //if (list != null)
+            //{
+            //    //for (int i = 0; i < list.Count; i++)
+            //    //{
+            //    //    Console.WriteLine(
+            //    //        $"{product.ProductName} {amount} * " +
+            //    //        $"{product.ProductPrice} = " +
+            //    //        $"{product.ProductPrice * amount}");
+            //    //    TotalPrice += (product.ProductPrice * amount);
+            //    //}
+            //}
+                foreach (var product in list)
                 {
                     Console.WriteLine(
-                        $"{product.ProductName} {Amount} * " +
+                        $"{product.ProductName} {amount} * " +
                         $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * Amount}");
-                    TotalPrice += (product.ProductPrice * Amount);
+                        $"{product.ProductPrice * amount}");
+                    TotalPrice += (product.ProductPrice * amount);
                 }
-            }
 
             Console.WriteLine($"Total: {TotalPrice} kr");
         }
+
+        //public List<Product> AddProductToList(Product product, int amount)
+        //{
+        //    product.Amount = amount;
+        //    List<Product> list = new List<Product>();
+        //    list.Add(product);
+
+        //    ProductList = list;
+        //    return ProductList; 
+        //}
 
         public static Product FindProduct(int productId)
         {
@@ -63,7 +93,7 @@ namespace KassaSystem___Kim.Receipt
             throw new Exception("Felaktigt <productId>");
         }
 
-        //public void AddProductToReceipt(int productId, int amount)
+        //public void AddProductToReceiptFile(int productId, int amount)
         //{
         //    var products = ReadProduct.ReadSortProductList();
 

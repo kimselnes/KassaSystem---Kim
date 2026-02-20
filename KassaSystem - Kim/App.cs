@@ -31,7 +31,7 @@ namespace KassaSystem___Kim
         private void RunMainMenu()
         {
             string prompt = "Kassa System";
-            string[] options = { "Ny kund", "Admin meny", "Avsluta", "TEST" }; // TA BORT TEST.
+            string[] options = ["Ny kund", "Admin meny", "Avsluta", "TEST"]; // TA BORT TEST.
 
             Menu mainMenu = new Menu(prompt, options);
             int selectedIndex = mainMenu.Run();
@@ -86,19 +86,33 @@ namespace KassaSystem___Kim
             // Om man matar in <productId> och <amount> som "300 4" - (MÅSTE SKRIVAS PÅ DETTA VIS OCH HA MELLANSLAG)
             // behöver man separera numre(r)na  och identifiera de som productId och amount.
             // Typ lägga i en array och se [0] som productId och [1] som amount.
-            Console.Clear();
             var receipt = new Receipts();
+            var registerProducts = new List<Product>();
+            var foundProduct = new Product();
+            int[] separatedCommand;
+            bool notPayed = true;
 
-            Console.WriteLine("Kassa\n");
-            receipt.PrintToScreen();
+            while (notPayed)
+            {
+                Console.Clear();
+                Console.WriteLine("Kassa\n");
+                receipt.PrintToScreen(registerProducts, foundProduct.Amount);
 
-            // UserINPUT
+                // UserINPUT
+                Console.WriteLine("\nKommandon:");
+                Console.WriteLine("<produktId> <Antal>");
+                Console.WriteLine("PAY\n");
+                Console.Write("Kommando:");
 
-            Console.WriteLine("Kommandon:<produktId> <Antal>");
-            Console.Write("Kommando:");
-            // Separate ID and AMOUNT
-            Console.ReadLine();
+                // Separate ID and AMOUNT
+                separatedCommand = Utility.SeparateCommand(Console.ReadLine());
 
+                foundProduct = Receipts.FindProduct(separatedCommand[0]);
+                foundProduct.Amount = separatedCommand[1];
+
+                registerProducts.Add(foundProduct);
+                //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
+            }
 
             Console.WriteLine();
             Utility.WaitForKeyPress();
@@ -114,8 +128,8 @@ namespace KassaSystem___Kim
             // MENY
 
             string prompt = "Admin Verktyg";
-            string[] options = { "Lägg till produkt", "Ändra produkt",
-                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka till huvudmenyn" };
+            string[] options = [ "Lägg till produkt", "Ändra produkt",
+                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka till huvudmenyn" ];
 
             Menu adminMenu = new Menu(prompt, options);
             int selectedIndex = adminMenu.Run();
