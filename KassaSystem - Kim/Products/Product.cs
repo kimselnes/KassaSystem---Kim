@@ -13,15 +13,14 @@ namespace KassaSystem___Kim.Products
 
 
         public Product()
-        {
-            
+        {            
         }
         public Product(int productId, string productName, decimal productPrice, string priceType)
         {
             ProductId = productId;
             ProductName = productName;
             ProductPrice = productPrice;
-            PriceType = priceType.ToUpper();
+            PriceType = priceType.ToUpper(); // Kanske inte ha ToUpper() här!
         }
     }
 }

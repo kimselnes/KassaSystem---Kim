@@ -1,7 +1,3 @@
 ProductId;ProductName;ProductPrice;PriceType
-300;Bananer;12,50;ST
-400;Köttfärs;82,50;KG;
-300;Bananer;12,50;ST
-300;Bananer;12,50;ST
-300;Bananer;12,50;ST
-300;Bananer;12,50;ST
+301;Bananer;12,50;ST
+401;Köttfärs;82,50;KG

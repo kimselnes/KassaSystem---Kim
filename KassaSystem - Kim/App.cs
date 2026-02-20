@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using KassaSystem___Kim.Products;
 using KassaSystem___Kim.Tools;
+using KassaSystem___Kim.Receipt;
 
 namespace KassaSystem___Kim
 {
@@ -30,7 +31,7 @@ namespace KassaSystem___Kim
         private void RunMainMenu()
         {
             string prompt = "Kassa System";
-            string[] options = { "Ny kund", "Admin meny", "Avsluta" };
+            string[] options = { "Ny kund", "Admin meny", "Avsluta", "TEST" }; // TA BORT TEST.
 
             Menu mainMenu = new Menu(prompt, options);
             int selectedIndex = mainMenu.Run();
@@ -38,11 +39,9 @@ namespace KassaSystem___Kim
             switch (selectedIndex)
             {
                 case 0:
-                    NewCustomer();
-
-
-                    Utility.WaitForKeyPress();
-                    RunMainMenu();
+                    Register();
+                    //Utility.WaitForKeyPress();
+                    //RunMainMenu();
                     break;
 
                 case 1:
@@ -51,6 +50,11 @@ namespace KassaSystem___Kim
 
                 case 2:
                     Utility.ExitApp();
+                    break;
+                case 3:
+                    // Här TESTAR jag klasser/metoder under utvecklingen. TA BORT!!
+                    int[] testing = Utility.SeparateCommand("300 4");
+                    Utility.WaitForKeyPress();
                     break;
             }
         }
@@ -82,14 +86,27 @@ namespace KassaSystem___Kim
             // Om man matar in <productId> och <amount> som "300 4" - (MÅSTE SKRIVAS PÅ DETTA VIS OCH HA MELLANSLAG)
             // behöver man separera numre(r)na  och identifiera de som productId och amount.
             // Typ lägga i en array och se [0] som productId och [1] som amount.
+            Console.Clear();
+            var receipt = new Receipts();
+
+            Console.WriteLine("Kassa\n");
+            receipt.PrintToScreen();
+
+            // UserINPUT
+
+            Console.WriteLine("Kommandon:<produktId> <Antal>");
+            Console.Write("Kommando:");
+            // Separate ID and AMOUNT
+            Console.ReadLine();
+
+
+            Console.WriteLine();
+            Utility.WaitForKeyPress();
+            RunMainMenu();
         }
 
         private void AdminMenu()
         {
-            //var createProduct = new CreateProduct(300, "Bananer", 12.50m, "st");
-            //var createProduct = new CreateProduct(400, "Mjölk", 15.50m, "st");
-            //createProduct.AddProductToFile(createProduct);
-
             // Här ska man kunna lägga till, ta bort, ändra och läsa alla produkter.
             // Man ska även kunna lägga till och ta bort KAMPANJER.
             // (Eventuellt att man måste skriva in korrekt användarnamn och lösen.)
@@ -98,7 +115,7 @@ namespace KassaSystem___Kim
 
             string prompt = "Admin Verktyg";
             string[] options = { "Lägg till produkt", "Ändra produkt",
-                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka" };
+                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka till huvudmenyn" };
 
             Menu adminMenu = new Menu(prompt, options);
             int selectedIndex = adminMenu.Run();
@@ -134,11 +151,20 @@ namespace KassaSystem___Kim
 
                     break;
 
-                    case 1:
+                case 1:
                     // REMOVE DOWNWARDS
-                    var newProduct69 = new Product(300, "Bananer", 12.50m, "st");
-                    AddProduct.AddProductToFile(newProduct69);
+                    //var newProduct69 = new Product(300, "Bananer", 12.50m, "st");
+                    //var newProduct70 = new Product(700, "Oliver", 69.50m, "kg");
+
+                    //AddProduct.AddProductToFile(newProduct69);
+                    //AddProduct.AddProductToFile(newProduct70);
                     // REMOVE UPWARDS
+
+                    var test = new ReadProduct();
+                    var test2 = test.ReadSortProductList();
+
+                    Utility.WaitForKeyPress();
+
                     break;
 
                 case 2:
@@ -149,20 +175,18 @@ namespace KassaSystem___Kim
                     List<string> lines = File.ReadAllLines(filePath).ToList();
 
                     string removePrompt = "Admin Verktyg";
-                    List<string> removeOptionsList = new List<string>();
 
+                    List<string> removeOptionsList = new List<string>();
                     foreach (var line in lines)
                     {
                         removeOptionsList.Add(line);
                     }
-
                     string[] removeOptions = removeOptionsList.ToArray();
 
                     Menu removeMenu = new Menu(removePrompt, removeOptions);
                     int removeSelectedIndex = removeMenu.Run();
 
                     // Remove at selected INDEX. Not '0' though.
-
                     if (removeSelectedIndex != 0)
                     {
 
@@ -171,6 +195,10 @@ namespace KassaSystem___Kim
 
                     Utility.WaitForKeyPress();
 
+                    break;
+
+                case 4:
+                    RunMainMenu();
                     break;
             }
 
