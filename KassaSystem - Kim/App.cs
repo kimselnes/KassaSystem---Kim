@@ -53,8 +53,7 @@ namespace KassaSystem___Kim
                     break;
                 case 3:
                     // Här TESTAR jag klasser/metoder under utvecklingen. TA BORT!!
-                    int[] testing = Utility.SeparateCommand("300 4");
-                    Utility.WaitForKeyPress();
+
                     break;
             }
         }
@@ -103,14 +102,25 @@ namespace KassaSystem___Kim
                 Console.WriteLine("<produktId> <Antal>");
                 Console.WriteLine("PAY\n");
                 Console.Write("Kommando:");
+                var userInput = Console.ReadLine();
 
-                // Separate ID and AMOUNT
-                separatedCommand = Utility.SeparateCommand(Console.ReadLine());
+                if (userInput == "PAY")
+                {
+                    Receipts receipts = new Receipts();
+                    receipts.AddReceiptToFile(registerProducts, foundProduct.Amount);
+                    notPayed = false;
+                }
+                else if (true)
+                {
+                    // Separate ID and AMOUNT
+                    separatedCommand = Utility.SeparateCommand(userInput);
 
-                foundProduct = Receipts.FindProduct(separatedCommand[0]);
-                foundProduct.Amount = separatedCommand[1];
+                    foundProduct = Receipts.FindProduct(separatedCommand[0]);
+                    foundProduct.Amount = separatedCommand[1];
 
-                registerProducts.Add(foundProduct);
+                    registerProducts.Add(foundProduct);
+
+                }
                 //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
             }
 

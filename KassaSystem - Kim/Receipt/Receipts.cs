@@ -1,6 +1,7 @@
 ﻿using KassaSystem___Kim.Products;
 using KassaSystem___Kim.Tools;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace KassaSystem___Kim.Receipt
         public Receipts()
         {
             DateAndTime = DateTime.Now;
-            Separator = "********************";
+            Separator = "****************************************";
         }
         //public Receipts(List<Product> productList, int amount)
         //{
@@ -33,14 +34,14 @@ namespace KassaSystem___Kim.Receipt
             Console.WriteLine("KVITTO");
             Console.WriteLine(DateAndTime);
 
-                foreach (var product in list)
-                {
-                    Console.WriteLine(
-                        $"{product.ProductName} {amount} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * amount}");
-                    TotalPrice += (product.ProductPrice * amount);
-                }
+            foreach (var product in list)
+            {
+                Console.WriteLine(
+                    $"{product.ProductName} {amount} * " +
+                    $"{product.ProductPrice} = " +
+                    $"{product.ProductPrice * amount}");
+                TotalPrice += (product.ProductPrice * amount);
+            }
 
             Console.WriteLine($"Total: {TotalPrice} kr");
 
@@ -88,11 +89,40 @@ namespace KassaSystem___Kim.Receipt
                 if (productId == product.ProductId)
                 {
                     return product;
-                }                
+                }
             }
 
             throw new Exception("Felaktigt <productId>");
         }
+
+        public void AddReceiptToFile(List<Product> list, int amount)
+        {
+            var date = DateTime.Today.ToString("yyyyMMdd");
+            string filePath = $"../../../Receipt/ReceiptFiles/RECEIPT_{date}.txt";
+
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath).Close();
+            }
+            if (File.Exists(filePath))
+            {
+                var receiptTime = DateTime.Now.ToString();
+                var textToAppend = receiptTime + Environment.NewLine;
+
+                foreach (var product in list)
+                {
+                    textToAppend += $"{product.ProductName} {amount} * " +
+                            $"{product.ProductPrice} = " +
+                            $"{product.ProductPrice * amount}" + Environment.NewLine;
+
+                    TotalPrice += (product.ProductPrice * amount);
+                }
+                textToAppend += $"Total: {TotalPrice} kr{Environment.NewLine}{Separator}";
+
+                File.AppendAllText(filePath, textToAppend + Environment.NewLine);
+            }
+        }
+
 
         //public void AddProductToReceiptFile(int productId, int amount)
         //{
