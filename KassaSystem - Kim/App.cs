@@ -78,7 +78,66 @@ namespace KassaSystem___Kim
             RunMainMenu();
         }
 
-        private void Register()
+        //private void Register()
+        //{
+        //    // Kassan
+        //    // Här sker betalningen.
+        //    // Om man matar in <productId> och <amount> som "300 4" - (MÅSTE SKRIVAS PÅ DETTA VIS OCH HA MELLANSLAG)
+        //    // behöver man separera numre(r)na  och identifiera de som productId och amount.
+        //    // Typ lägga i en array och se [0] som productId och [1] som amount.
+        //    var receipt = new Receipts();
+        //    var registerProducts = new List<Product>();
+        //    var foundProduct = new Product();
+        //    int[] separatedCommand;
+        //    bool notPayed = true;
+
+        //    while (notPayed)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Kassa\n");
+
+        //        receipt.PrintToScreen(registerProducts, foundProduct.Amount);
+
+        //        // UserINPUT
+        //        Console.WriteLine("\nKommandon:");
+        //        Console.WriteLine("<produktId> <Antal>");
+        //        Console.WriteLine("PAY\n");
+        //        Console.Write("Kommando:");
+        //        var userInput = Console.ReadLine();
+
+        //        if (userInput == "PAY")
+        //        {
+        //            Receipts receipts = new Receipts();
+        //            receipts.AddReceiptToFile(registerProducts, foundProduct.Amount);
+        //            notPayed = false;
+        //        }
+        //        else if (true)
+        //        {
+        //            // Separate ID and AMOUNT
+        //            separatedCommand = Utility.SeparateCommand(userInput);
+
+        //            foundProduct = Receipts.FindProduct(separatedCommand[0]);
+        //            if (foundProduct.ProductName != null)
+        //            {
+        //                foundProduct.Amount = separatedCommand[1];
+        //                registerProducts.Add(foundProduct);
+        //            }
+        //            else
+        //            {
+
+        //            }
+
+        //        }
+        //        //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
+        //    }
+
+
+
+        //Console.WriteLine();
+        //Utility.WaitForKeyPress();
+        //RunMainMenu();
+        //}
+        private void Register() // KOPIA, SKA SEI FALL JAG KAN LÖSA AMOUNT ISSUE.
         {
             // Kassan
             // Här sker betalningen.
@@ -95,7 +154,9 @@ namespace KassaSystem___Kim
             {
                 Console.Clear();
                 Console.WriteLine("Kassa\n");
-                receipt.PrintToScreen(registerProducts, foundProduct.Amount);
+
+                receipt.PrintToScreen(registerProducts);
+
 
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
@@ -116,9 +177,16 @@ namespace KassaSystem___Kim
                     separatedCommand = Utility.SeparateCommand(userInput);
 
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
-                    foundProduct.Amount = separatedCommand[1];
 
-                    registerProducts.Add(foundProduct);
+                    if (foundProduct.ProductName != null)
+                    {
+                        foundProduct.Amount = separatedCommand[1];
+                        registerProducts.Add(foundProduct);
+                    }
+                    //else
+                    //{
+
+                    //}
 
                 }
                 //receipt.PrintToScreen(foundProduct, separatedCommand[1]);

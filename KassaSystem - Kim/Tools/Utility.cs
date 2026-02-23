@@ -39,7 +39,24 @@ namespace KassaSystem___Kim.Tools
             for (int i = 0; i <= 1; i++)
             {
                 //pIdAmount[i] = Convert.ToInt32(tempStrings[i]); 
-                pIdAmount[i] = Int32.Parse(tempStrings[i]); 
+                //pIdAmount[i] = Int32.Parse(tempStrings[i]);
+                if (tempStrings.Length != 2)
+                {
+                    Console.WriteLine("Felaktigt kommand.");
+                }
+                else
+                {
+                    if (!Int32.TryParse(tempStrings[i], out int parsed))
+                    {
+                        Console.WriteLine("Felaktigt ID eller ANTAL.");
+                    }
+                    else
+                    {
+                        pIdAmount[i] = parsed;                    }
+
+                }
+
+
             }
 
 

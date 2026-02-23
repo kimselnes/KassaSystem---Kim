@@ -29,7 +29,7 @@ namespace KassaSystem___Kim.Receipt
         //    Separator = "********************";
         //}
 
-        public void PrintToScreen(List<Product> list, int amount)
+        public void PrintToScreen(List<Product> list)
         {
             Console.WriteLine("KVITTO");
             Console.WriteLine(DateAndTime);
@@ -37,10 +37,14 @@ namespace KassaSystem___Kim.Receipt
             foreach (var product in list)
             {
                 Console.WriteLine(
-                    $"{product.ProductName} {amount} * " +
+                    $"{product.ProductName} {product.Amount} * " + // ändrade amount till product.Amount
                     $"{product.ProductPrice} = " +
-                    $"{product.ProductPrice * amount}");
-                TotalPrice += (product.ProductPrice * amount);
+                    $"{product.ProductPrice * product.Amount}"); // ändrade amount till product.Amount
+
+                if (product.ProductName != null)
+                {
+                    TotalPrice += (product.ProductPrice * product.Amount); // ändrade amount till product.Amount
+                }
             }
 
             Console.WriteLine($"Total: {TotalPrice} kr");
@@ -92,7 +96,10 @@ namespace KassaSystem___Kim.Receipt
                 }
             }
 
-            throw new Exception("Felaktigt <productId>");
+            Product nullProduct = new Product();
+            return nullProduct;
+            // MÅSTE FIXA FELHANTERING OM PRODUCT EJ HITTAS
+            //throw new Exception("Felaktigt <productId>");
         }
 
         public void AddReceiptToFile(List<Product> list, int amount)
