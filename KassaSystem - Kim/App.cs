@@ -168,7 +168,7 @@ namespace KassaSystem___Kim
                 if (userInput == "PAY")
                 {
                     Receipts receipts = new Receipts();
-                    receipts.AddReceiptToFile(registerProducts, foundProduct.Amount);
+                    receipts.AddReceiptToFile(registerProducts);
                     notPayed = false;
                 }
                 else if (true)
@@ -182,6 +182,7 @@ namespace KassaSystem___Kim
                     {
                         foundProduct.Amount = separatedCommand[1];
                         registerProducts.Add(foundProduct);
+                        receipt.AddTotalPrice(foundProduct);
                     }
                     //else
                     //{

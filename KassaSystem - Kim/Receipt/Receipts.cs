@@ -29,6 +29,11 @@ namespace KassaSystem___Kim.Receipt
         //    Separator = "********************";
         //}
 
+        public void AddTotalPrice(Product product)
+        {
+            TotalPrice += product.ProductPrice * product.Amount;
+        }
+
         public void PrintToScreen(List<Product> list)
         {
             Console.WriteLine("KVITTO");
@@ -41,10 +46,10 @@ namespace KassaSystem___Kim.Receipt
                     $"{product.ProductPrice} = " +
                     $"{product.ProductPrice * product.Amount}"); // ändrade amount till product.Amount
 
-                if (product.ProductName != null)
-                {
-                    TotalPrice += (product.ProductPrice * product.Amount); // ändrade amount till product.Amount
-                }
+                //if ()
+                //{
+                //    TotalPrice += (product.ProductPrice * product.Amount); // ändrade amount till product.Amount
+                //}
             }
 
             Console.WriteLine($"Total: {TotalPrice} kr");
@@ -102,7 +107,7 @@ namespace KassaSystem___Kim.Receipt
             //throw new Exception("Felaktigt <productId>");
         }
 
-        public void AddReceiptToFile(List<Product> list, int amount)
+        public void AddReceiptToFile(List<Product> list)
         {
             var date = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"../../../Receipt/ReceiptFiles/RECEIPT_{date}.txt";
@@ -118,11 +123,11 @@ namespace KassaSystem___Kim.Receipt
 
                 foreach (var product in list)
                 {
-                    textToAppend += $"{product.ProductName} {amount} * " +
+                    textToAppend += $"{product.ProductName} {product.Amount} * " +
                             $"{product.ProductPrice} = " +
-                            $"{product.ProductPrice * amount}" + Environment.NewLine;
+                            $"{product.ProductPrice * product.Amount}" + Environment.NewLine;
 
-                    TotalPrice += (product.ProductPrice * amount);
+                    TotalPrice += (product.ProductPrice * product.Amount);
                 }
                 textToAppend += $"Total: {TotalPrice} kr{Environment.NewLine}{Separator}";
 
