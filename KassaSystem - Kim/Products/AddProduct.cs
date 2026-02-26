@@ -67,8 +67,6 @@ namespace KassaSystem___Kim.Products
 
 
 
-
-
                 //using (StreamWriter sWriter = new StreamWriter(filePath))
                 //{
                 //    sWriter.WriteLine($"{product.ProductId};{product.ProductName};" +

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KassaSystem___Kim.Tools
 {
-    internal class ReadProduct
+    internal  class ReadProduct
     {
         static ReadProduct()
         {
@@ -15,7 +15,7 @@ namespace KassaSystem___Kim.Tools
 
         //}
 
-        public List<Product> SortIntoList()
+        public  List<Product> SortIntoList()
         {
             string path = "../../../Products/ProductText/Products.csv";
             string filePath = path;
