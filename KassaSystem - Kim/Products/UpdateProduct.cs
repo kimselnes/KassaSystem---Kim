@@ -125,9 +125,59 @@ namespace KassaSystem___Kim.Products
 
         }
 
-        public static void ReplaceUpdate()
+        public static void ReplaceUpdated(int oldProduct, Product newProduct,
+            List<Product> sortedList)
         {
             // Byt ut gamla producted i .csv med den nya. INDEX, (updateIndex i App.cs)
+
+            foreach (var item in sortedList)
+            {
+                if (item.ProductId == oldProduct)
+                {
+                    item.ProductId = newProduct.ProductId;
+                    item.ProductName = newProduct.ProductName;
+                    item.ProductPrice = newProduct.ProductPrice;
+                    item.PriceType = newProduct.PriceType;
+                }
+            }
+            RewriteProductsText(sortedList);
+        }
+
+        public static void RewriteProductsText(List<Product> sortedList)
+        {
+            string filePath = "../../../Products/ProductText/Products.csv";
+
+            if (File.Exists(filePath))
+            {
+                File.WriteAllText(filePath,
+                    "ProductId;ProductName;ProductPrice,PriceType"
+                    + Environment.NewLine);
+
+                foreach (var item in sortedList)
+                {
+                    var textToAppend = $"{item.ProductId};{item.ProductName};" +
+                        $"{item.ProductPrice};{item.PriceType}";
+
+                    File.AppendAllText(filePath, textToAppend + Environment.NewLine);
+                }
+            }
+        }
+
+        public static bool CheckDuplicate(List<Product> sortedList, Product newProduct)
+        {
+            // Måste kolla ID
+            foreach (var item in sortedList)
+            {
+                if (item.ProductId == newProduct.ProductId)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Du har använt samma ID från annan produkt.");
+                    Console.ResetColor();
+
+                    return true;
+                }
+            }
+            return false;
         }
     }
 

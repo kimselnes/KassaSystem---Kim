@@ -254,41 +254,59 @@ namespace KassaSystem___Kim
                     Console.Clear();
 
                     var readProduct = new ReadProduct();
+                    var oldSortedProducts = readProduct.SortIntoList();
                     var sortedProducts = readProduct.SortIntoList();
+                    var oldProductId = 0;
 
                     List<string> tempListToArray = new List<string>();
-
                     foreach (var product in sortedProducts)
                     {
-                        string tempString = $"{product.ProductId},{product.ProductName},{product.ProductPrice},{product.PriceType}";
+                        string tempString = $"[ {product.ProductId} " +
+                            $"{product.ProductName} " +
+                            $"{product.ProductPrice} " +
+                            $"{product.PriceType} ]";
+
                         tempListToArray.Add(tempString);
                     }
                     string[] updateOptions = tempListToArray.ToArray();
 
                     string updatePrompt = "Ändra produkter";
                     Menu updateMenu = new Menu(updatePrompt, updateOptions);
-
                     int updateIndex = updateMenu.Run();
 
-                    // OM updateIndex == sortedProducts[index].
+                    var updateProduct = new Product();
 
-                    foreach (var product in sortedProducts)
+                    foreach (var item in sortedProducts)
                     {
                         for (int i = 0; i < sortedProducts.Count; i++)
                         {
-                            if (updateIndex == sortedProducts.IndexOf(product, i, 1))
+                            if (updateIndex == sortedProducts.IndexOf(item, i, 1))
                             {
-                                UpdateProduct.Update(product);
+                                oldProductId = item.ProductId;
+                                updateProduct = UpdateProduct.Update(item);
                             }
                         }
-
                     }
 
+                    bool isDuplicate = UpdateProduct.CheckDuplicate(
+                        oldSortedProducts, updateProduct);
 
+                    if (isDuplicate != true)
+                    {
+                        UpdateProduct.ReplaceUpdated(
+                            oldProductId, updateProduct, sortedProducts);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Återvänder till menyn...");
+                        Utility.WaitForKeyPress();
 
-
+                        // Ha en mer specifikt för denna case.
+                        AdminMenu();
+                    }
 
                     Console.WriteLine();
+                    Console.WriteLine("Listan av produkter uppdaterad!");
                     Utility.WaitForKeyPress();
 
                     break;
