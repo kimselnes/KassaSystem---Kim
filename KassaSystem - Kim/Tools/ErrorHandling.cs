@@ -8,7 +8,9 @@ namespace KassaSystem___Kim.Tools
     {
         public static  void RegisterProductIdAmount()
         {
-
+            
         }
+
+
     }
 }

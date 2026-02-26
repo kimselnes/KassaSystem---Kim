@@ -28,7 +28,7 @@ namespace KassaSystem___Kim
         }
 
 
-        private void RunMainMenu()
+        public void RunMainMenu()
         {
             string prompt = "Kassa System";
             string[] options = ["Ny kund", "Admin meny", "Avsluta", "TEST"]; // TA BORT TEST.
@@ -157,7 +157,6 @@ namespace KassaSystem___Kim
 
                 receipt.PrintToScreen(registerProducts);
 
-
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
                 Console.WriteLine("<produktId> <Antal>");
@@ -165,7 +164,7 @@ namespace KassaSystem___Kim
                 Console.Write("Kommando:");
                 var userInput = Console.ReadLine();
 
-                if (userInput == "PAY")
+                if (userInput.ToUpper() == "PAY")
                 {
                     Receipts receipts = new Receipts();
                     receipts.AddReceiptToFile(registerProducts);
@@ -184,29 +183,19 @@ namespace KassaSystem___Kim
                         registerProducts.Add(foundProduct);
                         receipt.AddTotalPrice(foundProduct);
                     }
-                    //else
-                    //{
-
-                    //}
-
                 }
-                //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
             }
-
-
 
             Console.WriteLine();
             Utility.WaitForKeyPress();
             RunMainMenu();
         }
 
-        private void AdminMenu()
+        public void AdminMenu()
         {
             // Här ska man kunna lägga till, ta bort, ändra och läsa alla produkter.
             // Man ska även kunna lägga till och ta bort KAMPANJER.
             // (Eventuellt att man måste skriva in korrekt användarnamn och lösen.)
-
-            // MENY
 
             string prompt = "Admin Verktyg";
             string[] options = [ "Lägg till produkt", "Ändra produkt",
@@ -226,11 +215,22 @@ namespace KassaSystem___Kim
                     Console.WriteLine("Lägga till produkt\n");
                     Console.Write("Podukt ID: "); // Lägga till så att produktId bara kan bara 3 siffror.
                     //int pId = Int32.Parse(Console.ReadLine());
-                    Int32.TryParse(Console.ReadLine(), out var pId);
+                    if (!Int32.TryParse(Console.ReadLine(), out var pId))
+                    {
+                        Console.WriteLine("Ange 3 siffrigt Produkt ID.");
+                        Utility.WaitForKeyPress();
+                        AdminMenu();
+                    }
                     Console.Write("Produkt namn: ");
                     string pName = Console.ReadLine();
                     Console.Write("Pris: ");
-                    Decimal.TryParse(Console.ReadLine(), out var pPrice); // Se till att det inte blir fel om man använder '.' istället för ','.
+                    //Decimal.TryParse(Console.ReadLine(), out var pPrice); // Se till att det inte blir fel om man använder '.' istället för ','.
+                    if (!Decimal.TryParse(Console.ReadLine(), out var pPrice))
+                    {
+                        Console.WriteLine("Ange korrekt pris.");
+                        Utility.WaitForKeyPress();
+                        AdminMenu();
+                    }
                     Console.Write("Kilo eller Styck pris? KG/ST: ");
                     string pType = Console.ReadLine(); // Lägga till ToUpper() här istället?
 
@@ -244,20 +244,51 @@ namespace KassaSystem___Kim
                         $" och priset '{pPrice}{pType}'.\n");
                     Utility.WaitForKeyPress();
 
+                    // SE TILL ATT ETT ID ELLLER NAMN INTE KAN FÖREKOMMA MER ÄN EN GÅNG.
+
+                    AdminMenu();
                     break;
 
                 case 1:
-                    // REMOVE DOWNWARDS
-                    //var newProduct69 = new Product(300, "Bananer", 12.50m, "st");
-                    //var newProduct70 = new Product(700, "Oliver", 69.50m, "kg");
 
-                    //AddProduct.AddProductToFile(newProduct69);
-                    //AddProduct.AddProductToFile(newProduct70);
-                    // REMOVE UPWARDS
+                    Console.Clear();
 
-                    var test = new ReadProduct();
-                    var test2 = test.ReadSortProductList();
+                    var readProduct = new ReadProduct();
+                    var sortedProducts = readProduct.SortIntoList();
 
+                    List<string> tempListToArray = new List<string>();
+
+                    foreach (var product in sortedProducts)
+                    {
+                        string tempString = $"{product.ProductId},{product.ProductName},{product.ProductPrice},{product.PriceType}";
+                        tempListToArray.Add(tempString);
+                    }
+                    string[] updateOptions = tempListToArray.ToArray();
+
+                    string updatePrompt = "Ändra produkter";
+                    Menu updateMenu = new Menu(updatePrompt, updateOptions);
+
+                    int updateIndex = updateMenu.Run();
+
+                    // OM updateIndex == sortedProducts[index].
+
+                    foreach (var product in sortedProducts)
+                    {
+                        for (int i = 0; i < sortedProducts.Count; i++)
+                        {
+                            if (updateIndex == sortedProducts.IndexOf(product, i, 1))
+                            {
+                                UpdateProduct.Update(product);
+                            }
+                        }
+
+                    }
+
+
+
+
+
+                    Console.WriteLine();
                     Utility.WaitForKeyPress();
 
                     break;

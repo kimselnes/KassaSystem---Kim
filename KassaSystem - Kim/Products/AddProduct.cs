@@ -79,29 +79,5 @@ namespace KassaSystem___Kim.Products
                 //    $"{product.ProductPrice};{product.PriceType}");
             }
         }
-
-        public static void ReadAllProducts()
-        {
-            //List<Product> products = new List<Product>();
-            //List<string> lines = File.ReadAllLines(filePath).ToList();
-
-            //foreach (var line in lines)
-            //{
-            //    string[] entries = line.Split(";");
-
-            //    Product newProduct = new Product();
-
-            //    newProduct.ProductId = Convert.ToInt32(entries[0]);
-            //    newProduct.ProductName = entries[1];
-            //    newProduct.ProductPrice = Convert.ToDecimal(entries[2]);
-            //    newProduct.PriceType = entries[3];
-            //}
-
-
-            //foreach (var prod in products)
-            //{
-
-            //}
-        }
     }
 }

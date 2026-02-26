@@ -43,12 +43,16 @@ namespace KassaSystem___Kim.Tools
                 if (tempStrings.Length != 2)
                 {
                     Console.WriteLine("Felaktigt kommand.");
+                    Utility.WaitForKeyPress();
+                    break;
                 }
                 else
                 {
                     if (!Int32.TryParse(tempStrings[i], out int parsed))
                     {
                         Console.WriteLine("Felaktigt ID eller ANTAL.");
+                        Utility.WaitForKeyPress();
+                        break;
                     }
                     else
                     {

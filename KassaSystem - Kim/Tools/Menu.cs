@@ -6,6 +6,16 @@ namespace KassaSystem___Kim.Tools
 {
     public class Menu
     {
+        // User Template
+
+        //string prompt = "Your prompt";
+        //string[] options = ["option1", "option2", "option3"];
+
+        //Menu menu = new Menu(prompt, options);
+        //int selectedIndex = mainMenu.Run();
+
+        // And then use switch(selectedIndex) as an example.
+        // ---------------------------------------------------------------------
         private int SelectedIndex { get; set; }
         private string[] Options { get; set; }
         private string Prompt { get; set; }

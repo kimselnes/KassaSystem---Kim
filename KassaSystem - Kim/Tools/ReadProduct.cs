@@ -15,7 +15,7 @@ namespace KassaSystem___Kim.Tools
 
         //}
 
-        public List<Product> ReadSortProductList()
+        public List<Product> SortIntoList()
         {
             string path = "../../../Products/ProductText/Products.csv";
             string filePath = path;

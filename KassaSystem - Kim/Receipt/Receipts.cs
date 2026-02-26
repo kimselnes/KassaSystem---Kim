@@ -91,7 +91,7 @@ namespace KassaSystem___Kim.Receipt
         public static Product FindProduct(int productId)
         {
             var readProduct = new ReadProduct();
-            var readSortProducts = readProduct.ReadSortProductList();
+            var readSortProducts = readProduct.SortIntoList();
 
             foreach (var product in readSortProducts)
             {
