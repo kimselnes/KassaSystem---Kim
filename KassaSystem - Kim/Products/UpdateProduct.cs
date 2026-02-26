@@ -1,4 +1,5 @@
-﻿using KassaSystem___Kim.Tools;
+﻿using KassaSystem___Kim.Admin;
+using KassaSystem___Kim.Tools;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -112,8 +113,7 @@ namespace KassaSystem___Kim.Products
                         Console.WriteLine("\nAvslutar...");
                         Utility.WaitForKeyPress();
                         //updating = false;
-                        App app = new App();
-                        app.AdminMenu();
+                        AdminOption.Menu();
                         break;
                 }
 

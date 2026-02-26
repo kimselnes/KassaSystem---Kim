@@ -4,6 +4,7 @@ using System.Text;
 using KassaSystem___Kim.Products;
 using KassaSystem___Kim.Tools;
 using KassaSystem___Kim.Receipt;
+using KassaSystem___Kim.Admin;
 
 namespace KassaSystem___Kim
 {
@@ -20,11 +21,6 @@ namespace KassaSystem___Kim
             Console.Title = "Kim's Kassasystem";
 
             RunMainMenu();
-
-
-
-
-
         }
 
 
@@ -45,7 +41,7 @@ namespace KassaSystem___Kim
                     break;
 
                 case 1:
-                    AdminMenu();
+                    AdminOption.Menu();
                     break;
 
                 case 2:
@@ -56,26 +52,6 @@ namespace KassaSystem___Kim
 
                     break;
             }
-        }
-
-        //private void ExitApp()
-        //{
-        //    Console.ForegroundColor = ConsoleColor.Red;
-        //    Console.WriteLine("\nAvslutar Kassasystemet. Tryck valfri knapp för att avsluta.");
-        //    Console.ResetColor();
-        //    Console.ReadKey(true);
-        //    Environment.Exit(0);
-        //}
-
-        private void NewCustomer()
-        {
-            // Ny försäljning.
-            // Verktyg/meny för kunden att "plocka" ihop varor/produkter.
-            Console.Clear();
-            Console.WriteLine("Ny kund.");
-
-            Utility.WaitForKeyPress();
-            RunMainMenu();
         }
 
         //private void Register()
@@ -191,176 +167,19 @@ namespace KassaSystem___Kim
             RunMainMenu();
         }
 
-        public void AdminMenu()
-        {
-            // Här ska man kunna lägga till, ta bort, ändra och läsa alla produkter.
-            // Man ska även kunna lägga till och ta bort KAMPANJER.
-            // (Eventuellt att man måste skriva in korrekt användarnamn och lösen.)
-
-            string prompt = "Admin Verktyg";
-            string[] options = [ "Lägg till produkt", "Ändra produkt",
-                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka till huvudmenyn" ];
-
-            Menu adminMenu = new Menu(prompt, options);
-            int selectedIndex = adminMenu.Run();
-
-            switch (selectedIndex)
-            {
-                case 0:
-                    // Lägga till prod.
-
-                    //var createProduct = new CreateProduct(300, "Bananer", 12.50m, "st");
-                    Console.Clear();
-
-                    Console.WriteLine("Lägga till produkt\n");
-                    Console.Write("Podukt ID: "); // Lägga till så att produktId bara kan bara 3 siffror.
-                    //int pId = Int32.Parse(Console.ReadLine());
-                    if (!Int32.TryParse(Console.ReadLine(), out var pId))
-                    {
-                        Console.WriteLine("Ange 3 siffrigt Produkt ID.");
-                        Utility.WaitForKeyPress();
-                        AdminMenu();
-                    }
-                    Console.Write("Produkt namn: ");
-                    string pName = Console.ReadLine();
-                    Console.Write("Pris: ");
-                    //Decimal.TryParse(Console.ReadLine(), out var pPrice); // Se till att det inte blir fel om man använder '.' istället för ','.
-                    if (!Decimal.TryParse(Console.ReadLine(), out var pPrice))
-                    {
-                        Console.WriteLine("Ange korrekt pris.");
-                        Utility.WaitForKeyPress();
-                        AdminMenu();
-                    }
-                    Console.Write("Kilo eller Styck pris? KG/ST: ");
-                    string pType = Console.ReadLine(); // Lägga till ToUpper() här istället?
-
-                    var newProduct = new Product(pId, pName, pPrice, pType);
-                    AddProduct.AddProductToFile(newProduct);
-
-                    // If success...
-                    Console.WriteLine($"\nDu har lagt till:" +
-                        $"'{pName}'" +
-                        $" med ID '{pId}'" +
-                        $" och priset '{pPrice}{pType}'.\n");
-                    Utility.WaitForKeyPress();
-
-                    // SE TILL ATT ETT ID ELLLER NAMN INTE KAN FÖREKOMMA MER ÄN EN GÅNG.
-
-                    AdminMenu();
-                    break;
-
-                case 1:
-
-                    Console.Clear();
-
-                    var readProduct = new ReadProduct();
-                    var oldSortedProducts = readProduct.SortIntoList();
-                    var sortedProducts = readProduct.SortIntoList();
-                    var oldProductId = 0;
-
-                    List<string> tempListToArray = new List<string>();
-                    foreach (var product in sortedProducts)
-                    {
-                        string tempString = $"[ {product.ProductId} " +
-                            $"{product.ProductName} " +
-                            $"{product.ProductPrice} " +
-                            $"{product.PriceType} ]";
-
-                        tempListToArray.Add(tempString);
-                    }
-                    string[] updateOptions = tempListToArray.ToArray();
-
-                    string updatePrompt = "Ändra produkter";
-                    Menu updateMenu = new Menu(updatePrompt, updateOptions);
-                    int updateIndex = updateMenu.Run();
-
-                    var updateProduct = new Product();
-
-                    foreach (var item in sortedProducts)
-                    {
-                        for (int i = 0; i < sortedProducts.Count; i++)
-                        {
-                            if (updateIndex == sortedProducts.IndexOf(item, i, 1))
-                            {
-                                oldProductId = item.ProductId;
-                                updateProduct = UpdateProduct.Update(item);
-                            }
-                        }
-                    }
-
-                    bool isDuplicate = UpdateProduct.CheckDuplicate(
-                        oldSortedProducts, updateProduct);
-
-                    if (isDuplicate != true)
-                    {
-                        UpdateProduct.ReplaceUpdated(
-                            oldProductId, updateProduct, sortedProducts);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Återvänder till menyn...");
-                        Utility.WaitForKeyPress();
-
-                        // Ha en mer specifikt för denna case.
-                        AdminMenu();
-                    }
-
-                    Console.WriteLine();
-                    Console.WriteLine("Listan av produkter uppdaterad!");
-                    Utility.WaitForKeyPress();
-
-                    break;
-
-                case 2:
-                    // Ta bort prod.
-                    Console.Clear();
-
-                    string filePath = "../../../Products/ProductText/Products.csv";
-                    List<string> lines = File.ReadAllLines(filePath).ToList();
-
-                    string removePrompt = "Admin Verktyg";
-
-                    List<string> removeOptionsList = new List<string>();
-                    foreach (var line in lines)
-                    {
-                        removeOptionsList.Add(line);
-                    }
-                    string[] removeOptions = removeOptionsList.ToArray();
-
-                    Menu removeMenu = new Menu(removePrompt, removeOptions);
-                    int removeSelectedIndex = removeMenu.Run();
-
-                    // Remove at selected INDEX. Not '0' though.
-                    if (removeSelectedIndex != 0)
-                    {
-
-                    }
-
-
-                    Utility.WaitForKeyPress();
-
-                    break;
-
-                case 4:
-                    RunMainMenu();
-                    break;
-            }
-
-
-
-            // Ändra prod.
+        // Ändra prod.
 
 
 
 
-            // Skriva ut prods.
+        // Skriva ut prods.
 
 
-            // KAMANJER. TBA.
+        // KAMANJER. TBA.
 
 
-            // Avsluta/Gå tillbaka
+        // Avsluta/Gå tillbaka
 
-        }
+
     }
 }

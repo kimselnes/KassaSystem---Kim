@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Admin\AdminOptions\" />
     <Folder Include="Products\ProductText\" />
     <Folder Include="Receipt\ReceiptFiles\" />
   </ItemGroup>
