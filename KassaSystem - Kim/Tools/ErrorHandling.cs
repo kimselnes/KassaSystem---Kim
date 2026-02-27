@@ -50,6 +50,21 @@ namespace KassaSystem___Kim.Tools
             }
             return false;
         }
+
+        public static bool CheckPriceType(string priceType)
+        {
+            if (priceType.ToUpper() == "KG" ||priceType.ToUpper() == "ST")
+            {
+                return true;
+            }
+            else
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("Du angav felaktig typ (KG eller ST)");
+                Console.ResetColor();
+                return false;
+            }
+        }
         //public static int ConvertIdToInt(string userInput)
         //{
         //    int pId = Convert.ToInt32(userInput);

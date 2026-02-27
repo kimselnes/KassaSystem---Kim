@@ -60,8 +60,13 @@ namespace KassaSystem___Kim.Admin.AdminOptions
 
 
             Console.Write("Kilo eller Styck pris? KG/ST: ");
-            string pType = Console.ReadLine(); // Lägga till ToUpper() här istället?
+            string pType = Console.ReadLine().ToUpper();
 
+            if (!ErrorHandling.CheckPriceType(pType))
+            {
+                Utility.WaitForKeyPress();
+                AdminOption.Menu();
+            }
 
             var newProduct = new Product(pId, pName, pPrice, pType);
             var readProduct = new ReadProduct();

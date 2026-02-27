@@ -110,7 +110,13 @@ namespace KassaSystem___Kim.Products
                         Console.WriteLine("Skriv det nya Produkt Pristyp");
                         Console.WriteLine("Nuvarande: " + product.PriceType);
                         Console.Write("Nya: ");
-                        var newType = Console.ReadLine();
+                        var newType = Console.ReadLine().ToUpper();
+
+                        if (!ErrorHandling.CheckPriceType(newType))
+                        {
+                            Utility.WaitForKeyPress();
+                            AdminOptionUpdate.Run();
+                        }
 
                         var tempType = product.PriceType;
                         product.PriceType = newType;
