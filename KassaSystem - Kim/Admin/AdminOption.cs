@@ -38,29 +38,7 @@ namespace KassaSystem___Kim.Admin
 
                 case 2:
                     // Ta bort prod.
-                    Console.Clear();
-
-                    string filePath = "../../../Products/ProductText/Products.csv";
-                    List<string> lines = File.ReadAllLines(filePath).ToList();
-
-                    string removePrompt = "Admin Verktyg";
-
-                    List<string> removeOptionsList = new List<string>();
-                    foreach (var line in lines)
-                    {
-                        removeOptionsList.Add(line);
-                    }
-                    string[] removeOptions = removeOptionsList.ToArray();
-
-                    Menu removeMenu = new Menu(removePrompt, removeOptions);
-                    int removeSelectedIndex = removeMenu.Run();
-
-                    // Remove at selected INDEX. Not '0' though.
-                    if (removeSelectedIndex != 0)
-                    {
-
-                    }
-
+                    AdminOptionDelete.Run();
 
                     Utility.WaitForKeyPress();
 

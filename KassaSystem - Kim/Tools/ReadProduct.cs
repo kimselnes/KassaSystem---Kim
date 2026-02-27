@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KassaSystem___Kim.Tools
 {
-    internal  class ReadProduct
+    internal class ReadProduct
     {
         static ReadProduct()
         {

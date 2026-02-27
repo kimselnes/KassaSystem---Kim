@@ -154,7 +154,7 @@ namespace KassaSystem___Kim.Products
         public static void ReplaceUpdated(int oldProduct, Product newProduct,
             List<Product> sortedList)
         {
-            // Byt ut gamla producted i .csv med den nya. INDEX, (updateIndex i App.cs)
+            // Byt ut gamla product i .csv med den nya. INDEX, (updateIndex i App.cs)
 
             foreach (var item in sortedList)
             {

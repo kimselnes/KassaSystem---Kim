@@ -53,7 +53,9 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             //Decimal.TryParse(Console.ReadLine(), out var pPrice); // Se till att det inte blir fel om man använder '.' istället för ','.
             if (!Decimal.TryParse(Console.ReadLine(), out var pPrice))
             {
-                Console.WriteLine("Ange korrekt pris.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Ange korrekt pris. Använd ',' inte '.'");
+                Console.ResetColor();
                 Utility.WaitForKeyPress();
                 AdminOption.Menu();
             }

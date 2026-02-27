@@ -21,7 +21,7 @@ namespace KassaSystem___Kim.Products
             ProductId = productId;
             ProductName = productName;
             ProductPrice = productPrice;
-            PriceType = priceType.ToUpper(); // Kanske inte ha ToUpper() här!
+            PriceType = priceType; // Kanske inte ha ToUpper() här!
         }
     }
 }
