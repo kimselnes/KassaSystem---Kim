@@ -28,10 +28,12 @@ namespace KassaSystem___Kim.Admin
                 case 0:
                     // Lägga till prod.
                     AdminOptionAdd.Run();
+                    app.RunMainMenu();
                     break;
 
                 case 1:
                     AdminOptionUpdate.Run();
+                    app.RunMainMenu();
                     break;
 
                 case 2:

@@ -1,4 +1,5 @@
 ﻿using KassaSystem___Kim.Admin;
+using KassaSystem___Kim.Admin.AdminOptions;
 using KassaSystem___Kim.Tools;
 using System;
 using System.Collections.Generic;
@@ -30,27 +31,45 @@ namespace KassaSystem___Kim.Products
                 int selectedIndex = prodProperty.Run();
 
                 switch (selectedIndex)
-                {
-                    case 0:
+                {                    
+                    case 0: // Input new ProductId
                         Console.Clear();
                         Console.WriteLine("Skriv det nya Produkt ID:t");
                         Console.WriteLine("Nuvarande: " + product.ProductId);
-                        Console.Write("Nya: ");
+                        Console.Write("Nya (3 siffror): ");
 
-                        if (Int32.TryParse(Console.ReadLine(), out var newId))
+                        string userInput = Console.ReadLine();
+                        bool isIdRegexOk = ErrorHandling.CheckIdRegex(userInput);
+                        if (!isIdRegexOk)
                         {
-                            var tempId = product.ProductId;
-                            product.ProductId = newId;
-
-                            Console.WriteLine($"\nDu har uppdaterat Produkt ID.\n" +
-                                $"{tempId} -> {product.ProductId}");
-
-                            Console.WriteLine();
-                            Utility.WaitForKeyPress();
+                            AdminOptionUpdate.Run();
                         }
+                        int newId = Convert.ToInt32(userInput);
+
+                        var tempId = product.ProductId;
+                        product.ProductId = newId;
+
+                        Console.WriteLine($"\nDu har uppdaterat Produkt ID.\n" +
+                            $"{tempId} -> {product.ProductId}");
+
+                        Console.WriteLine();
+                        Utility.WaitForKeyPress();
+
+                        // Innan jag lade till REGEX
+                        //if (Int32.TryParse(Console.ReadLine(), out var newId))
+                        //{
+                        //    var tempId = product.ProductId;
+                        //    product.ProductId = newId;
+
+                        //    Console.WriteLine($"\nDu har uppdaterat Produkt ID.\n" +
+                        //        $"{tempId} -> {product.ProductId}");
+
+                        //    Console.WriteLine();
+                        //    Utility.WaitForKeyPress();
+                        //}
                         break;
 
-                    case 1:
+                    case 1: // Input new ProductName
                         Console.Clear();
                         Console.WriteLine("Skriv det nya Produkt Namnet");
                         Console.WriteLine("Nuvarande: " + product.ProductName);
@@ -67,7 +86,7 @@ namespace KassaSystem___Kim.Products
                         Utility.WaitForKeyPress();
                         break;
 
-                    case 2:
+                    case 2: // Input new Product Price
                         Console.Clear();
                         Console.WriteLine("Skriv det nya Produkt Priset");
                         Console.WriteLine("Nuvarande: " + product.ProductPrice);
@@ -86,7 +105,7 @@ namespace KassaSystem___Kim.Products
                         }
                         break;
 
-                    case 3:
+                    case 3: // Input new Price Type
                         Console.Clear();
                         Console.WriteLine("Skriv det nya Produkt Pristyp");
                         Console.WriteLine("Nuvarande: " + product.PriceType);
@@ -102,14 +121,15 @@ namespace KassaSystem___Kim.Products
                         Console.WriteLine();
                         Utility.WaitForKeyPress();
                         break;
-                    case 4:
+
+                    case 4: // Save changes
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Du har sparat dina ändringar");
                         Console.ResetColor();
 
                         return product;
 
-                    case 5:
+                    case 5: // Quit without saving
                         Console.WriteLine("\nAvslutar...");
                         Utility.WaitForKeyPress();
                         //updating = false;

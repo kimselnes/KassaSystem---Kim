@@ -12,7 +12,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
         public static void Run()
         {
             Console.Clear();
-            
+
             Console.WriteLine("Lägga till produkt\n");
             Console.Write("Produkt ID: "); // Lägga till så att produktId bara kan bara 3 siffror.
                                            //int pId = Int32.Parse(Console.ReadLine());
@@ -35,6 +35,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             //    AdminOption.Menu();
             //}
             //int pId = Convert.ToInt32(input);
+
             string userInput = Console.ReadLine();
             bool isIdRegexOk = ErrorHandling.CheckIdRegex(userInput);
             if (!isIdRegexOk)
@@ -42,6 +43,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
                 AdminOption.Menu();
             }
             int pId = Convert.ToInt32(userInput);
+
 
             Console.Write("Produkt namn: ");
             string pName = Console.ReadLine();
@@ -66,21 +68,23 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             List<Product> products = new List<Product>();
             products = readProduct.SortIntoList();
 
-            if (!ErrorHandling.CheckDuplicate(products, newProduct))
+            if (ErrorHandling.CheckDuplicate(products, newProduct))
             {
-                Console.WriteLine("Produkt ID upptaget");
+                Utility.WaitForKeyPress();
+                AdminOption.Menu();
             }
+            else
+            {
+                AddProduct.AddProductToFile(newProduct);
 
-            AddProduct.AddProductToFile(newProduct);
-
-            // If success...
-            Console.WriteLine($"\nDu har lagt till:" +
-                $"'{pName}'" +
-                $" med ID '{pId}'" +
-                $" och priset '{pPrice}{pType}'.\n");
-            Utility.WaitForKeyPress();
-
-            // SE TILL ATT ETT ID ELLLER NAMN INTE KAN FÖREKOMMA MER ÄN EN GÅNG.
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\nDu har lagt till:" +
+                    $"'{pName}'" +
+                    $" med ID '{pId}'" +
+                    $" och priset '{pPrice}{pType}'.\n");
+                Console.ResetColor();
+                Utility.WaitForKeyPress();
+            }
 
             AdminOption.Menu();
         }

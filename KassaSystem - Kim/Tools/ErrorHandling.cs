@@ -32,8 +32,8 @@ namespace KassaSystem___Kim.Tools
             {
                 return true;
             }
-
         }
+
         public static bool CheckDuplicate(List<Product> sortedList, Product newProduct)
         {
             // Måste kolla ID
