@@ -19,17 +19,16 @@ namespace KassaSystem___Kim.Admin.AdminOptions
 
             string prompt = "Ta bort produkt";
 
-
             foreach (var item in sortedList)
             {
                 tempProduct = $"{item.ProductId} {item.ProductName}";
                 tempDeleteOptions.Add(tempProduct);
             }
+            //tempDeleteOptions.Add("Avbryt");
             string[] deleteOptions = tempDeleteOptions.ToArray();
 
             Menu deleteListed = new Menu(prompt, deleteOptions);
             int deleteSelectedIndex = deleteListed.Run();
-
 
             sortedList.RemoveAt(deleteSelectedIndex);
             UpdateProduct.RewriteProductsText(sortedList);
@@ -37,35 +36,6 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"\nDu har tagit bort produkten ifrån listan.");
             Console.ResetColor();
-
-
-
-
-
-
-            //string filePath = "../../../Products/ProductText/Products.csv";
-            //List<string> lines = File.ReadAllLines(filePath).ToList();
-
-            //string removePrompt = "Admin Verktyg";
-
-            //List<string> removeOptionsList = new List<string>();
-            //foreach (var line in lines)
-            //{
-            //    removeOptionsList.Add(line);
-            //}
-            //string[] removeOptions = removeOptionsList.ToArray();
-
-            //Menu removeMenu = new Menu(removePrompt, removeOptions);
-            //int removeSelectedIndex = removeMenu.Run();
-
-            //// Remove at selected INDEX. Not '0' though.
-            //if (removeSelectedIndex != 0)
-            //{
-            //    removeOptionsList.RemoveAt(removeSelectedIndex);
-            //    UpdateProduct.RewriteProductsText(removeOptionsList);
-            //}
-
-
         }
     }
 }

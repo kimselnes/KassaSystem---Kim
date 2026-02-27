@@ -121,6 +121,7 @@ namespace KassaSystem___Kim
             // behöver man separera numre(r)na  och identifiera de som productId och amount.
             // Typ lägga i en array och se [0] som productId och [1] som amount.
             var receipt = new Receipts();
+            int serialNumber = receipt.GetSerialNumber();
             var registerProducts = new List<Product>();
             var foundProduct = new Product();
             int[] separatedCommand;
@@ -143,7 +144,7 @@ namespace KassaSystem___Kim
                 if (userInput.ToUpper() == "PAY")
                 {
                     Receipts receipts = new Receipts();
-                    receipts.AddReceiptToFile(registerProducts);
+                    receipts.AddReceiptToFile(registerProducts, serialNumber);
                     notPayed = false;
                 }
                 else if (true)
@@ -166,20 +167,5 @@ namespace KassaSystem___Kim
             Utility.WaitForKeyPress();
             RunMainMenu();
         }
-
-        // Ändra prod.
-
-
-
-
-        // Skriva ut prods.
-
-
-        // KAMANJER. TBA.
-
-
-        // Avsluta/Gå tillbaka
-
-
     }
 }

@@ -1,4 +1,5 @@
 ProductId;ProductName;ProductPrice,PriceType
+201;Tejp;11;ST
 301;Bananer;12,50;ST
 401;Kottfars;82,50;KG
-201;Tejp;11;ST
+501;Potatis;24,50;KG

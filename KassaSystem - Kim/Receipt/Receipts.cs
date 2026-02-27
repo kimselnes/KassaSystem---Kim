@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace KassaSystem___Kim.Receipt
 {
@@ -107,7 +108,7 @@ namespace KassaSystem___Kim.Receipt
             //throw new Exception("Felaktigt <productId>");
         }
 
-        public void AddReceiptToFile(List<Product> list)
+        public void AddReceiptToFile(List<Product> list, int serialNumber)
         {
             var date = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"../../../Receipt/ReceiptFiles/RECEIPT_{date}.txt";
@@ -118,8 +119,13 @@ namespace KassaSystem___Kim.Receipt
             }
             if (File.Exists(filePath))
             {
+                serialNumber++;
+                SetSerialNumberText(serialNumber);
+
                 var receiptTime = DateTime.Now.ToString();
-                var textToAppend = receiptTime + Environment.NewLine;
+                var textToAppend = "Serial number: " + 
+                    serialNumber + Environment.NewLine + 
+                    receiptTime + Environment.NewLine;
 
                 foreach (var product in list)
                 {
@@ -132,6 +138,38 @@ namespace KassaSystem___Kim.Receipt
                 textToAppend += $"Total: {TotalPrice} kr{Environment.NewLine}{Separator}";
 
                 File.AppendAllText(filePath, textToAppend + Environment.NewLine);
+            }
+        }
+
+        public int GetSerialNumber()
+        {
+            string filePath = $"../../../Receipt/SerialNumber/SerialNumber.txt";
+            if (!File.Exists(filePath))
+            {
+                File.Create(filePath).Close();
+            }
+
+            int serialNumber = 0;
+
+            using (StreamReader streamReader = new StreamReader(
+                    File.OpenRead(filePath)))
+            {
+                while (!streamReader.EndOfStream) // EndOfStream will indicate when stream is the end of file.
+                {
+                    var line = streamReader.ReadLine();
+                    serialNumber = Convert.ToInt32(line);
+                }
+            }
+            return serialNumber;
+        }
+
+        public void SetSerialNumberText(int serialNumber)
+        {
+            string filePath = $"../../../Receipt/SerialNumber/SerialNumber.txt";
+
+            using (StreamWriter streamWriter = new StreamWriter(filePath))
+            {
+                streamWriter.WriteLine(serialNumber.ToString());
             }
         }
 
