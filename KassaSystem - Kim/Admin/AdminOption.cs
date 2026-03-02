@@ -1,4 +1,5 @@
 ﻿using KassaSystem___Kim.Admin.AdminOptions;
+using KassaSystem___Kim.Admin.Discount;
 using KassaSystem___Kim.Products;
 using KassaSystem___Kim.Tools;
 using System;
@@ -18,7 +19,7 @@ namespace KassaSystem___Kim.Admin
 
             string prompt = "Admin Verktyg";
             string[] options = [ "Lägg till produkt", "Ändra produkt",
-                "Ta bort produkt", "Skriva ut produkter", "Gå tillbaka till huvudmenyn" ];
+                "Ta bort produkt", "Skriva ut produkter", "Kampanjer", "Gå tillbaka till huvudmenyn" ];
 
             Menu adminMenu = new Menu(prompt, options);
             int selectedIndex = adminMenu.Run();
@@ -39,12 +40,16 @@ namespace KassaSystem___Kim.Admin
                 case 2:
                     // Ta bort prod.
                     AdminOptionDelete.Run();
-
+                    Menu();
                     Utility.WaitForKeyPress();
 
                     break;
 
                 case 4:
+                    DiscountOption.Menu();
+                    break;
+
+                case 5:
                     app.RunMainMenu();
                     break;
             }

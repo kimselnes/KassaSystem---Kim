@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Discount\" />
+    <Folder Include="Admin\Discount\DiscountFiles\" />
     <Folder Include="Products\ProductText\" />
     <Folder Include="Receipt\ReceiptFiles\" />
   </ItemGroup>

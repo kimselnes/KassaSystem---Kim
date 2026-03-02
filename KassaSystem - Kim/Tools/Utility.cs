@@ -56,13 +56,10 @@ namespace KassaSystem___Kim.Tools
                     }
                     else
                     {
-                        pIdAmount[i] = parsed;                    }
-
+                        pIdAmount[i] = parsed;
+                    }
                 }
-
-
             }
-
 
             return pIdAmount;
         }

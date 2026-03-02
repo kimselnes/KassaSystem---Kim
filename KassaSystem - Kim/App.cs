@@ -1,10 +1,11 @@
-﻿using System;
+﻿using KassaSystem___Kim.Admin;
+using KassaSystem___Kim.Admin.Discount;
+using KassaSystem___Kim.Products;
+using KassaSystem___Kim.Receipt;
+using KassaSystem___Kim.Tools;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using KassaSystem___Kim.Products;
-using KassaSystem___Kim.Tools;
-using KassaSystem___Kim.Receipt;
-using KassaSystem___Kim.Admin;
 
 namespace KassaSystem___Kim
 {
@@ -49,7 +50,9 @@ namespace KassaSystem___Kim
                     break;
                 case 3:
                     // Här TESTAR jag klasser/metoder under utvecklingen. TA BORT!!
-
+                    List<Discount> discountList = DiscountService.SortIntoList();
+                    //DiscountOption.Menu();
+                    Utility.WaitForKeyPress();
                     break;
             }
         }
