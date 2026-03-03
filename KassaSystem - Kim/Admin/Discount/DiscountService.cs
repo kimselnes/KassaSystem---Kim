@@ -62,5 +62,30 @@ namespace KassaSystem___Kim.Admin.Discount
 
             return discountList;
         }
+
+        public static void RewriteDiscountText(List<Discount> discounts)
+        {
+            string filePath = "../../../Admin/Discount/DiscountFiles/DiscountFile.csv";
+
+            if (File.Exists(filePath))
+            {
+                File.WriteAllText(filePath,
+                    "DiscountedId;DiscountedPrice;TwoForThree;StartDate;EndDate"
+                    + Environment.NewLine);
+
+                foreach (var item in discounts)
+                {
+                    string textToAppend = $"" +
+                    $"{item.DiscountedProductId};" +
+                    $"{item.DiscountPrice};" +
+                    $"{item.TwoForThree};" +
+                    $"{item.StartDate};" +
+                    $"{item.EndDate}";
+
+                    File.AppendAllText(filePath, textToAppend + Environment.NewLine);
+                }
+            }
+
+        }
     }
 }

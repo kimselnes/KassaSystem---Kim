@@ -47,10 +47,10 @@ namespace KassaSystem___Kim
                 case 2:
                     Utility.ExitApp();
                     break;
+
                 case 3:
                     // Här TESTAR jag klasser/metoder under utvecklingen. TA BORT!!
-                    List<Discount> discountList = DiscountService.SortIntoList();
-                    //DiscountOption.Menu();
+                    DiscountOption.Menu();
                     Utility.WaitForKeyPress();
                     break;
             }
@@ -149,9 +149,13 @@ namespace KassaSystem___Kim
                 {
                     Receipts receipts = new Receipts();
                     receipts.AddReceiptToFile(
-                        registerProducts, 
-                        serialNumber, 
+                        registerProducts,
+                        serialNumber,
                         originalProductPrice);
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("\nDu har betalat för dina varor");
+                    Console.ResetColor();
                     notPayed = false;
                 }
                 else if (true)
@@ -161,28 +165,29 @@ namespace KassaSystem___Kim
 
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
 
-                    // ÄR DET HÄR JAG VILL KOLLA EFTER EVENTUELL KAMPANJ?
+                    // Checks discounts
                     foreach (var discount in discountList)
                     {
-                        if (foundProduct.ProductId == discount.DiscountedProductId)
+                        if (discount.StartDate <= DateTime.Now.Date &&
+                            discount.EndDate >= DateTime.Now.Date)
                         {
-                            if (discount.DiscountPrice != 0)
+
+                            if (foundProduct.ProductId == discount.DiscountedProductId)
                             {
-                                originalProductPrice = foundProduct.ProductPrice;
-                                foundProduct.ProductPrice = discount.DiscountPrice;
-                                foundProduct.HasDiscount = true;
-                            }
-                            else if (discount.TwoForThree)
-                            {
-                                foundProduct.HasTwoThreeDiscount = true;
-                                foundProduct.HasDiscount = true;
+                                if (discount.DiscountPrice != 0)
+                                {
+                                    originalProductPrice = foundProduct.ProductPrice;
+                                    foundProduct.ProductPrice = discount.DiscountPrice;
+                                    foundProduct.HasDiscount = true;
+                                }
+                                else if (discount.TwoForThree)
+                                {
+                                    foundProduct.HasTwoThreeDiscount = true;
+                                    foundProduct.HasDiscount = true;
+                                }
                             }
                         }
                     }
-
-
-
-
 
                     if (foundProduct.ProductName != null)
                     {
@@ -193,7 +198,7 @@ namespace KassaSystem___Kim
                 }
             }
 
-            Console.WriteLine();
+            //Console.WriteLine();
             Utility.WaitForKeyPress();
             RunMainMenu();
         }

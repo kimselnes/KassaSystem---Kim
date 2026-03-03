@@ -24,6 +24,7 @@ namespace KassaSystem___Kim.Admin.Discount
                     break;
 
                 case 1:
+                    DiscountOptionDelete.Run();
                     break;
 
                 case 2:
