@@ -187,29 +187,40 @@ namespace KassaSystem___Kim.Receipt
 
                 foreach (var product in list)
                 {
-                    if (product.HasTwoThreeDiscount)
+                    if (product.HasDiscount)
                     {
-                        int threeForTwo = product.Amount / 3;
+                        if (product.HasTwoThreeDiscount)
+                        {
+                            int threeForTwo = product.Amount / 3;
 
-                        textToAppend += $"{product.ProductName} {product.Amount - threeForTwo} * " +
-                                $"{product.ProductPrice} = " +
-                                $"{product.ProductPrice * (product.Amount - threeForTwo)}\n" +
-                                $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}"
-                                + Environment.NewLine;
+                            textToAppend += $"{product.ProductName} {product.Amount - threeForTwo} * " +
+                                    $"{product.ProductPrice} = " +
+                                    $"{product.ProductPrice * (product.Amount - threeForTwo)}\n" +
+                                    $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}"
+                                    + Environment.NewLine;
 
-                        TotalPrice += (product.ProductPrice * (product.Amount - threeForTwo));
+                            TotalPrice += (product.ProductPrice * (product.Amount - threeForTwo));
+                        }
+                        else
+                        {
+                            textToAppend += $"{product.ProductName} {product.Amount} * " +
+                                    $"{product.ProductPrice} = " +
+                                    $"{product.ProductPrice * product.Amount}\n" +
+                                    $"  -Ordinariepris: {originalPrice * product.Amount}"
+                                    + Environment.NewLine;
+
+                            TotalPrice += (product.ProductPrice * product.Amount);
+                        }
                     }
                     else
                     {
                         textToAppend += $"{product.ProductName} {product.Amount} * " +
                                 $"{product.ProductPrice} = " +
-                                $"{product.ProductPrice * product.Amount}\n" +
-                                $"  -Ordinariepris: {originalPrice * product.Amount}"
-                                + Environment.NewLine;
+                                $"{product.ProductPrice * product.Amount}" + Environment.NewLine;
 
                         TotalPrice += (product.ProductPrice * product.Amount);
-
                     }
+
                 }
                 //foreach (var product in list)
                 //{

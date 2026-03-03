@@ -46,3 +46,21 @@ Tejp 2 * 8 = 16
   -Ordinarie: 2 * 11 = 22
 Total: 16 kr
 ****************************************
+Serial number: 15
+2026-03-03 15:21:36
+Bananer 3 * 12,50 = 37,50
+  -Ordinariepris: 33
+Tejp 4 * 8 = 32
+  -Ordinarie: 5 * 11 = 55
+Potatis 2 * 24,50 = 49,00
+  -Ordinariepris: 22
+Total: 118,50 kr
+****************************************
+Serial number: 16
+2026-03-03 15:24:38
+Bananer 2 * 12,50 = 25,00
+Tejp 3 * 8 = 24
+  -Ordinarie: 4 * 11 = 44
+Kottfars 1 * 82,50 = 82,50
+Total: 131,50 kr
+****************************************
