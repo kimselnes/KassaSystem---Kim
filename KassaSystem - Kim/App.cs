@@ -24,7 +24,6 @@ namespace KassaSystem___Kim
             RunMainMenu();
         }
 
-
         public void RunMainMenu()
         {
             string prompt = "Kassa System";
@@ -127,6 +126,8 @@ namespace KassaSystem___Kim
             int serialNumber = receipt.GetSerialNumber();
             var registerProducts = new List<Product>();
             var foundProduct = new Product();
+            List<Discount> discountList = DiscountService.SortIntoList();
+            decimal originalProductPrice = 0m;
             int[] separatedCommand;
             bool notPayed = true;
 
@@ -135,7 +136,7 @@ namespace KassaSystem___Kim
                 Console.Clear();
                 Console.WriteLine("Kassa\n");
 
-                receipt.PrintToScreen(registerProducts);
+                receipt.PrintToScreen2(registerProducts, originalProductPrice);
 
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
@@ -147,7 +148,10 @@ namespace KassaSystem___Kim
                 if (userInput.ToUpper() == "PAY")
                 {
                     Receipts receipts = new Receipts();
-                    receipts.AddReceiptToFile(registerProducts, serialNumber);
+                    receipts.AddReceiptToFile(
+                        registerProducts, 
+                        serialNumber, 
+                        originalProductPrice);
                     notPayed = false;
                 }
                 else if (true)
@@ -156,6 +160,29 @@ namespace KassaSystem___Kim
                     separatedCommand = Utility.SeparateCommand(userInput);
 
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
+
+                    // ÄR DET HÄR JAG VILL KOLLA EFTER EVENTUELL KAMPANJ?
+                    foreach (var discount in discountList)
+                    {
+                        if (foundProduct.ProductId == discount.DiscountedProductId)
+                        {
+                            if (discount.DiscountPrice != 0)
+                            {
+                                originalProductPrice = foundProduct.ProductPrice;
+                                foundProduct.ProductPrice = discount.DiscountPrice;
+                                foundProduct.HasDiscount = true;
+                            }
+                            else if (discount.TwoForThree)
+                            {
+                                foundProduct.HasTwoThreeDiscount = true;
+                                foundProduct.HasDiscount = true;
+                            }
+                        }
+                    }
+
+
+
+
 
                     if (foundProduct.ProductName != null)
                     {

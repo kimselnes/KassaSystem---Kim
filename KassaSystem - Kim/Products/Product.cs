@@ -12,6 +12,7 @@ namespace KassaSystem___Kim.Products
         public string PriceType { get; set; }
         public int Amount { get; set; }
         public bool HasDiscount { get; set; } = false;
+        public bool HasTwoThreeDiscount { get; set; } = false;
 
         public Product()
         {

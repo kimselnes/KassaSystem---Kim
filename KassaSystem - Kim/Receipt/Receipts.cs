@@ -32,7 +32,67 @@ namespace KassaSystem___Kim.Receipt
 
         public void AddTotalPrice(Product product)
         {
-            TotalPrice += product.ProductPrice * product.Amount;
+            if (product.HasTwoThreeDiscount)
+            {
+                var threeForTwo = product.Amount / 3;
+                TotalPrice += product.ProductPrice * (product.Amount - threeForTwo);
+            }
+            else
+            {
+                TotalPrice += product.ProductPrice * product.Amount;
+            }
+        }
+
+
+        public void PrintToScreen2(List<Product> list, decimal originalPrice) // NYVERSION som tar med KAMPANJER
+        {
+            Console.WriteLine("KVITTO");
+            Console.WriteLine(DateAndTime);
+
+            foreach (var product in list)
+            {
+                if (product.HasDiscount)
+                {
+                    if (product.HasTwoThreeDiscount &&
+                        product.ProductPrice != originalPrice)
+                    {
+                        // Fixa så att var tredje vara blir gratis.
+                        int threeForTwo = product.Amount / 3;
+                        int threeForTwoResult = product.Amount - threeForTwo;
+
+                        Console.WriteLine(
+                        $"{product.ProductName} {threeForTwoResult} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * threeForTwoResult}\n" +
+                        $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}");
+                    }
+                    else if (product.HasTwoThreeDiscount)
+                    {
+                        // Rabatt pris
+                        Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}");
+                    }
+                    else if (product.ProductPrice != originalPrice)
+                    {
+                        Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}\n" +
+                        $"  -Ordinariepris: {originalPrice * product.Amount}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}");
+                }
+            }
+
+            Console.WriteLine($"Total: {TotalPrice} kr");
         }
 
         public void PrintToScreen(List<Product> list)
@@ -104,11 +164,9 @@ namespace KassaSystem___Kim.Receipt
 
             Product nullProduct = new Product();
             return nullProduct;
-            // MÅSTE FIXA FELHANTERING OM PRODUCT EJ HITTAS
-            //throw new Exception("Felaktigt <productId>");
         }
 
-        public void AddReceiptToFile(List<Product> list, int serialNumber)
+        public void AddReceiptToFile(List<Product> list, int serialNumber, decimal originalPrice)
         {
             var date = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"../../../Receipt/ReceiptFiles/RECEIPT_{date}.txt";
@@ -123,18 +181,44 @@ namespace KassaSystem___Kim.Receipt
                 SetSerialNumberText(serialNumber);
 
                 var receiptTime = DateTime.Now.ToString();
-                var textToAppend = "Serial number: " + 
-                    serialNumber + Environment.NewLine + 
+                var textToAppend = "Serial number: " +
+                    serialNumber + Environment.NewLine +
                     receiptTime + Environment.NewLine;
 
                 foreach (var product in list)
                 {
-                    textToAppend += $"{product.ProductName} {product.Amount} * " +
-                            $"{product.ProductPrice} = " +
-                            $"{product.ProductPrice * product.Amount}" + Environment.NewLine;
+                    if (product.HasTwoThreeDiscount)
+                    {
+                        int threeForTwo = product.Amount / 3;
 
-                    TotalPrice += (product.ProductPrice * product.Amount);
+                        textToAppend += $"{product.ProductName} {product.Amount - threeForTwo} * " +
+                                $"{product.ProductPrice} = " +
+                                $"{product.ProductPrice * (product.Amount - threeForTwo)}\n" +
+                                $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}"
+                                + Environment.NewLine;
+
+                        TotalPrice += (product.ProductPrice * (product.Amount - threeForTwo));
+                    }
+                    else
+                    {
+                        textToAppend += $"{product.ProductName} {product.Amount} * " +
+                                $"{product.ProductPrice} = " +
+                                $"{product.ProductPrice * product.Amount}\n" +
+                                $"  -Ordinariepris: {originalPrice * product.Amount}"
+                                + Environment.NewLine;
+
+                        TotalPrice += (product.ProductPrice * product.Amount);
+
+                    }
                 }
+                //foreach (var product in list)
+                //{
+                //    textToAppend += $"{product.ProductName} {product.Amount} * " +
+                //            $"{product.ProductPrice} = " +
+                //            $"{product.ProductPrice * product.Amount}" + Environment.NewLine;
+
+                //    TotalPrice += (product.ProductPrice * product.Amount);
+                //}
                 textToAppend += $"Total: {TotalPrice} kr{Environment.NewLine}{Separator}";
 
                 File.AppendAllText(filePath, textToAppend + Environment.NewLine);
