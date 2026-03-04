@@ -1,4 +1,5 @@
-﻿using KassaSystem___Kim.Products;
+﻿using KassaSystem___Kim.Admin.Discount;
+using KassaSystem___Kim.Products;
 using KassaSystem___Kim.Tools;
 using System;
 using System.Collections.Generic;
@@ -30,12 +31,28 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             Menu deleteListed = new Menu(prompt, deleteOptions);
             int deleteSelectedIndex = deleteListed.Run();
 
-            sortedList.RemoveAt(deleteSelectedIndex);
-            UpdateProduct.RewriteProductsText(sortedList);
+            string yesNoPrompt = $"\nÄr du säker på att du vill ta bort:\n" +
+                $"{tempProduct}";
+            string[] yesNoOptions = ["Ja", "Nej"];
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\nDu har tagit bort produkten ifrån listan.");
-            Console.ResetColor();
+            Menu yesNoMenu = new Menu(yesNoPrompt, yesNoOptions);
+            int yesNoSelectedIndex = yesNoMenu.Run();
+
+            switch (yesNoSelectedIndex)
+            {
+                case 0:
+                    sortedList.RemoveAt(deleteSelectedIndex);
+                    UpdateProduct.RewriteProductsText(sortedList);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"\nDu har tagit bort produkten ifrån listan.");
+                    Console.ResetColor();
+                    Utility.WaitForKeyPress();
+                    break;
+                case 1:
+                    AdminOption.Menu();
+                    break;
+            }
         }
     }
 }

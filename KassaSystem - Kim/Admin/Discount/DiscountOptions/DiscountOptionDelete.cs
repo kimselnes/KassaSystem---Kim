@@ -32,16 +32,33 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             Menu deleteListed = new Menu(discountDeletePrompt, deleteOptions);
             int deleteSelectedIndex = deleteListed.Run();
 
-            discountList.RemoveAt(deleteSelectedIndex);
 
-            DiscountService.RewriteDiscountText(discountList);
+            string yesNoPrompt = $"\nÄr du säker på att du vill ta bort kampanjen för: " +
+                $"{discountList[deleteSelectedIndex].DiscountedProductId}";
+            string[] yesNoOptions = ["Ja", "Nej"];
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"\nDu har tagit bort kampanjen.");
-            Console.ResetColor();
+            Menu yesNoMenu = new Menu(yesNoPrompt, yesNoOptions);
+            int yesNoSelectedIndex = yesNoMenu.Run();
 
-            Utility.WaitForKeyPress();
-            DiscountOption.Menu();
+            switch (yesNoSelectedIndex)
+            {
+                case 0:
+                    discountList.RemoveAt(deleteSelectedIndex);
+
+                    DiscountService.RewriteDiscountText(discountList);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"\nDu har tagit bort kampanjen.");
+                    Console.ResetColor();
+
+                    Utility.WaitForKeyPress();
+                    DiscountOption.Menu();
+                    break;
+                case 1:
+                    DiscountOption.Menu();
+                    break;
+            }
+
         }
     }
 }

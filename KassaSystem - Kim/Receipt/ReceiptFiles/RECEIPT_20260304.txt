@@ -1,0 +1,29 @@
+Serial number: 20
+2026-03-04 18:11:06
+Tejp 3 * 8 = 24
+  -Ordinarie: 4 * 0 = 0
+Bananer 3 * 12,50 = 37,50
+  -Ordinarie: 4 * 0 = 0
+Tejp 3 * 8 = 24
+  -Ordinarie: 4 * 0 = 0
+Total: 85,50 kr
+****************************************
+Serial number: 21
+2026-03-04 18:12:27
+Bananer 3 * 10 = 30
+  -Ordinarie: 4 * 0 = 0
+Tejp 3 * 8 = 24
+  -Ordinarie: 4 * 0 = 0
+Bananer 3 * 10 = 30
+  -Ordinarie: 4 * 0 = 0
+Total: 84 kr
+****************************************
+Serial number: 22
+2026-03-04 18:16:33
+Tejp 3 * 8 = 24
+  -Ordinarie: 4 * 11 = 44
+Bananer 3 * 10 = 30
+  -Ordinarie: 4 * 12,50 = 50,00
+Kottfars 4 * 82,50 = 330,00
+Total: 384,00 kr
+****************************************

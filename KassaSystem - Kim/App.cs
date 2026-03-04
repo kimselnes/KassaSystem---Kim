@@ -5,6 +5,7 @@ using KassaSystem___Kim.Receipt;
 using KassaSystem___Kim.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Text;
 
 namespace KassaSystem___Kim
@@ -125,6 +126,8 @@ namespace KassaSystem___Kim
             var receipt = new Receipts();
             int serialNumber = receipt.GetSerialNumber();
             var registerProducts = new List<Product>();
+            var readProducts = new ReadProduct();
+            var originalListOfProducts = readProducts.SortIntoList();
             var foundProduct = new Product();
             List<Discount> discountList = DiscountService.SortIntoList();
             decimal originalProductPrice = 0m;
@@ -136,11 +139,12 @@ namespace KassaSystem___Kim
                 Console.Clear();
                 Console.WriteLine("Kassa\n");
 
-                receipt.PrintToScreen2(registerProducts, originalProductPrice);
+                //receipt.PrintToScreen2(registerProducts, originalProductPrice);
+                receipt.PrintToScreen3(registerProducts, originalListOfProducts);
 
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
-                Console.WriteLine("<produktId> <Antal>");
+                Console.WriteLine("<produktId> <antal>");
                 Console.WriteLine("PAY\n");
                 Console.Write("Kommando:");
                 var userInput = Console.ReadLine();
@@ -151,7 +155,7 @@ namespace KassaSystem___Kim
                     receipts.AddReceiptToFile(
                         registerProducts,
                         serialNumber,
-                        originalProductPrice);
+                        originalListOfProducts);
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\nDu har betalat för dina varor");
@@ -164,7 +168,7 @@ namespace KassaSystem___Kim
                     separatedCommand = Utility.SeparateCommand(userInput);
 
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
-
+                    //var counter = 0;
                     // Checks discounts
                     foreach (var discount in discountList)
                     {
@@ -174,9 +178,14 @@ namespace KassaSystem___Kim
 
                             if (foundProduct.ProductId == discount.DiscountedProductId)
                             {
-                                if (discount.DiscountPrice != 0)
+                                if (discount.DiscountPrice != 0 &&
+                                    discount.DiscountPrice < foundProduct.ProductPrice) // ADDED && discount.DiscountPrice < foundProduct.ProductPrice
                                 {
-                                    originalProductPrice = foundProduct.ProductPrice;
+                                    //if (counter == 0)
+                                    //{
+                                    //    originalProductPrice = foundProduct.ProductPrice;
+                                    //    counter++;
+                                    //}
                                     foundProduct.ProductPrice = discount.DiscountPrice;
                                     foundProduct.HasDiscount = true;
                                 }

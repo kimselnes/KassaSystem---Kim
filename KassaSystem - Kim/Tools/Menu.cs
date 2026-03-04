@@ -20,12 +20,13 @@ namespace KassaSystem___Kim.Tools
         private int SelectedIndex { get; set; }
         private string[] Options { get; set; }
         private string Prompt { get; set; }
-
+        //private Object Object { get; set; }
         public Menu(string prompt, string[] options)
         {
             Prompt = prompt;
             Options = options;
             SelectedIndex = 0;
+            //Object = @object;
         }
 
         private void DisplayOptions()
@@ -84,6 +85,10 @@ namespace KassaSystem___Kim.Tools
                         SelectedIndex = 0;
                     }
                 }
+                //else if (keyPressed == ConsoleKey.Escape)
+                //{
+                //    return -1;
+                //}
             }
             while (keyPressed != ConsoleKey.Enter);
 

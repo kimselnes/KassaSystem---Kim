@@ -107,7 +107,7 @@ namespace KassaSystem___Kim.Tools
 
         public static bool CheckPriceType(string priceType)
         {
-            if (priceType.ToUpper() == "KG" ||priceType.ToUpper() == "ST")
+            if (priceType.ToUpper() == "KG" || priceType.ToUpper() == "ST")
             {
                 return true;
             }

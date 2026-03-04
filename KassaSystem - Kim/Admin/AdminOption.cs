@@ -42,9 +42,11 @@ namespace KassaSystem___Kim.Admin
                     AdminOptionDelete.Run();
                     Menu();
                     Utility.WaitForKeyPress();
-
                     break;
 
+                case 3:
+                    AdminOptionRead.Run();
+                    break;
                 case 4:
                     DiscountOption.Menu();
                     break;

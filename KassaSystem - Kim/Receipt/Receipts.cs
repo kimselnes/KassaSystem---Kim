@@ -94,6 +94,65 @@ namespace KassaSystem___Kim.Receipt
 
             Console.WriteLine($"Total: {TotalPrice} kr");
         }
+        public void PrintToScreen3(List<Product> list, List<Product> originalList) // NYVERSION som tar med KAMPANJER
+        {
+            var originalPrice = 0m;
+            Console.WriteLine("KVITTO");
+            Console.WriteLine(DateAndTime);
+
+            foreach (var product in list)
+            {
+                foreach (var originalProduct in originalList)
+                {
+                    if (product.ProductId == originalProduct.ProductId)
+                    {
+                        originalPrice = originalProduct.ProductPrice;
+                    }
+                }
+
+                if (product.HasDiscount)
+                {
+                    if (product.HasTwoThreeDiscount &&
+                        product.ProductPrice != originalPrice)
+                    {
+                        // Fixa så att var tredje vara blir gratis.
+                        int threeForTwo = product.Amount / 3;
+                        int threeForTwoResult = product.Amount - threeForTwo;
+
+                        Console.WriteLine(
+                        $"{product.ProductName} {threeForTwoResult} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * threeForTwoResult}\n" +
+                        $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}");
+                    }
+                    else if (product.HasTwoThreeDiscount)
+                    {
+                        // Rabatt pris
+                        Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}");
+                    }
+                    else if (product.ProductPrice != originalPrice)
+                    {
+                        Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}\n" +
+                        $"  -Ordinariepris: {originalPrice * product.Amount}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(
+                        $"{product.ProductName} {product.Amount} * " +
+                        $"{product.ProductPrice} = " +
+                        $"{product.ProductPrice * product.Amount}");
+                }
+            }
+
+            Console.WriteLine($"Total: {TotalPrice} kr");
+        }
 
         public void PrintToScreen(List<Product> list)
         {
@@ -166,8 +225,11 @@ namespace KassaSystem___Kim.Receipt
             return nullProduct;
         }
 
-        public void AddReceiptToFile(List<Product> list, int serialNumber, decimal originalPrice)
+        public void AddReceiptToFile( List<Product> list, 
+            int serialNumber, List<Product> originalList)
         {
+            var originalPrice = 0m;
+
             var date = DateTime.Today.ToString("yyyyMMdd");
             string filePath = $"../../../Receipt/ReceiptFiles/RECEIPT_{date}.txt";
 
@@ -187,6 +249,14 @@ namespace KassaSystem___Kim.Receipt
 
                 foreach (var product in list)
                 {
+                    foreach (var originalProduct in originalList)
+                    {
+                        if (product.ProductId == originalProduct.ProductId)
+                        {
+                            originalPrice = originalProduct.ProductPrice;
+                        }
+                    }
+
                     if (product.HasDiscount)
                     {
                         if (product.HasTwoThreeDiscount)
