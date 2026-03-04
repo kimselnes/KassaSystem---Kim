@@ -67,6 +67,15 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
                     {
                         DiscountOptionAdd.Run();
                     }
+                    else if (tempDec >= discountProd.ProductPrice)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Kampanjpriset får inte vara lägre än ordinariepris.");
+                        Console.ResetColor();
+                        Utility.WaitForKeyPress();
+
+                        DiscountOptionAdd.Run();
+                    }
                     else
                     {
                         //discountSpecificPrice = tempDec;
@@ -105,6 +114,7 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
 
 
             Utility.WaitForKeyPress();
+            DiscountOption.Menu();
         }
 
         public static decimal SetDiscountPrice()
@@ -112,7 +122,7 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             Console.Write("Ange nytt pris under kampanjen: ");
             var userInput = Console.ReadLine();
 
-            if (!Decimal.TryParse(userInput, out var disPrice))
+            if (!Decimal.TryParse(userInput, out var discPrice))
             {
                 Console.WriteLine("Felaktigt pris");
                 return 0m;
@@ -120,7 +130,7 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             else
             {
                 // MAN SKA INTE KUNNA LÄGGA TILL ETT KAMPANJPRIS SOM ÄR HÖGRA ÄN ORDINARIE.
-                return disPrice;
+                return discPrice;
             }
         }
 
@@ -144,30 +154,69 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
         {
             Console.WriteLine("Ange start datum");
             Console.Write("År 'yyyy': ");
-            //var year = Convert.ToInt32(Console.ReadLine());
-            if (!Int32.TryParse(Console.ReadLine(), out var year))
+            ////var year = Convert.ToInt32(Console.ReadLine());
+            //var userInputYear = Console.ReadLine();
+
+            var userInputYear = ErrorHandling.CheckYearRegex(Console.ReadLine());
+
+            if (!Int32.TryParse(userInputYear, out var year) && year == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Felaktigt år angivet");
                 Console.ResetColor();
+                Utility.WaitForKeyPress();
                 DiscountOptionAdd.Run();
             }
+
+            //if (userInputYear == null)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //    Console.WriteLine("Felaktigt år angivet");
+            //    Console.ResetColor();
+            //    Utility.WaitForKeyPress();
+            //    DiscountOptionAdd.Run();
+            //}
+            //var year = Convert.ToInt32(userInputYear);
+
             Console.Write("Månad 'MM': ");
             //var month = Convert.ToInt32(Console.ReadLine());
-            if (!Int32.TryParse(Console.ReadLine(), out var month))
+            var userInputMonth = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
+            //if (userInputMonth == null)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //    Console.WriteLine("Felaktig månad angivet");
+            //    Console.ResetColor();
+            //    Utility.WaitForKeyPress();
+            //    DiscountOptionAdd.Run();
+            //}
+            //var month = Convert.ToInt32(userInputMonth);
+
+            if (!Int32.TryParse(userInputMonth, out var month) && month == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Felaktig månad angivet");
+                Console.WriteLine("Felaktigt år angivet");
                 Console.ResetColor();
+                Utility.WaitForKeyPress();
                 DiscountOptionAdd.Run();
             }
-            Console.Write("Månad 'dd': ");
-            //var day = Convert.ToInt32(Console.ReadLine());
-            if (!Int32.TryParse(Console.ReadLine(), out var day))
+
+            Console.Write("Dag 'dd': ");
+            var userInputDay = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
+            //if (userInputDay == null)
+            //{
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //    Console.WriteLine("Felaktig dag angivet");
+            //    Console.ResetColor();
+            //    Utility.WaitForKeyPress();
+            //    DiscountOptionAdd.Run();
+            //}
+            //var day = Convert.ToInt32(userInputDay);
+            if (!Int32.TryParse(userInputDay, out var day) && day == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Felaktigt datum angivet");
+                Console.WriteLine("Felaktigt år angivet");
                 Console.ResetColor();
+                Utility.WaitForKeyPress();
                 DiscountOptionAdd.Run();
             }
 
@@ -180,11 +229,43 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
         {
             Console.WriteLine("Ange slut datum");
             Console.Write("År 'yyyy': ");
-            var year = Convert.ToInt32(Console.ReadLine());
+            var userInputYear = ErrorHandling.CheckYearRegex(Console.ReadLine());
+
+            if (!Int32.TryParse(userInputYear, out var year) && year == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Felaktigt år angivet");
+                Console.ResetColor();
+                Utility.WaitForKeyPress();
+                DiscountOptionAdd.Run();
+            }
+
+
             Console.Write("Månad 'MM': ");
-            var month = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Månad 'dd': ");
-            var day = Convert.ToInt32(Console.ReadLine());
+            var userInputMonth = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
+
+            if (!Int32.TryParse(userInputMonth, out var month) && month == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Felaktigt år angivet");
+                Console.ResetColor();
+                Utility.WaitForKeyPress();
+                DiscountOptionAdd.Run();
+            }
+
+
+            Console.Write("Dag 'dd': ");
+            var userInputDay = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
+
+            if (!Int32.TryParse(userInputDay, out var day) && day == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Felaktigt år angivet");
+                Console.ResetColor();
+                Utility.WaitForKeyPress();
+                DiscountOptionAdd.Run();
+            }
+
 
             DateTime dateTime = new DateTime(year, month, day);
 

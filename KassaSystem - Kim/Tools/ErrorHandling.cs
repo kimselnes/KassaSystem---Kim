@@ -33,6 +33,60 @@ namespace KassaSystem___Kim.Tools
                 return true;
             }
         }
+        public static string CheckYearRegex(string userInput) // PRova med STRING som return
+        {
+            string regexPattern = @"\b[0-9]{4}\b";
+            Regex regex = new(regexPattern);
+
+            Match match = regex.Match(userInput);
+
+            if (!match.Success)
+            {
+                //Console.WriteLine("Ange 4 siffrigt År.");
+                //Utility.WaitForKeyPress();
+                return null;
+            }
+            else
+            {
+                return userInput;
+            }
+        }
+        public static string CheckMonthDayRegex(string userInput) // PRova med STRING som return
+        {
+            string regexPattern = @"\b[0-9]{2}\b";
+            Regex regex = new(regexPattern);
+
+            Match match = regex.Match(userInput);
+
+            if (!match.Success)
+            {
+                //Console.WriteLine("Ange 2 siffrig månad/dag.");
+                //Utility.WaitForKeyPress();
+                return null;
+            }
+            else
+            {
+                return userInput;
+            }
+        }
+        //public static bool CheckYearRegex(string userInput)
+        //{
+        //    string regexPattern = @"\b[0-9]{4}\b";
+        //    Regex regex = new(regexPattern);
+
+        //    Match match = regex.Match(userInput);
+
+        //    if (!match.Success)
+        //    {
+        //        Console.WriteLine("Ange 4 siffrigt År.");
+        //        Utility.WaitForKeyPress();
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         public static bool CheckDuplicate(List<Product> sortedList, Product newProduct)
         {

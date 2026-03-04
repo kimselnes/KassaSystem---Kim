@@ -13,7 +13,7 @@ namespace KassaSystem___Kim.Admin.Discount
             Console.Clear();
 
             string prompt = "Kampanjer";
-            string[] discountOptions = ["Lägg till kampanj", "Ta bort kampanj", "Gå tillbaka"];
+            string[] discountOptions = ["Lägg till kampanj", "Ta bort kampanj", "Visa alla kampanjer","Gå tillbaka"];
             Menu discountMenu = new Menu(prompt, discountOptions);
             int selectedDiscountIndex = discountMenu.Run();
 
@@ -28,6 +28,10 @@ namespace KassaSystem___Kim.Admin.Discount
                     break;
 
                 case 2:
+                    DiscountOptionRead.Run();
+                    break;
+
+                case 3:
                     AdminOption.Menu();
                     break;
             }
