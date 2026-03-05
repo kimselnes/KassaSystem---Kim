@@ -13,8 +13,7 @@ namespace KassaSystem___Kim.Tools
 
         public  List<Product> SortIntoList()
         {
-            string path = "../../../Products/ProductText/Products.csv";
-            string filePath = path;
+            string filePath = "../../../Products/ProductText/Products.csv";
 
             List<Product> productList = new List<Product>();
             using (StreamReader streamReader = new StreamReader(

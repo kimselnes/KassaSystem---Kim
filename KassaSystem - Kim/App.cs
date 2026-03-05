@@ -12,7 +12,6 @@ namespace KassaSystem___Kim
 {
     internal class App
     {
-
         public void Start()
         {
             Console.Title = "Kim's Kassasystem";
@@ -22,6 +21,8 @@ namespace KassaSystem___Kim
 
         public void RunMainMenu()
         {
+            Utility.SortProductsFile();
+
             string prompt = "Kassa System";
             string[] options = ["Ny kund", "Admin meny", "Avsluta"];
 
