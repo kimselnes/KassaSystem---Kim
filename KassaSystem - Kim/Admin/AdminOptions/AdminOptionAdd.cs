@@ -14,27 +14,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
             Console.Clear();
 
             Console.WriteLine("Lägga till produkt\n");
-            Console.Write("Produkt ID: "); // Lägga till så att produktId bara kan bara 3 siffror.
-                                           //int pId = Int32.Parse(Console.ReadLine());
-                                           //string regexPattern = @"\b[0-9]{3}\b"; // Vill att det ska vara endast 3 siffror.
-                                           //Regex regex = new(regexPattern);
-
-            ////if (!Int32.TryParse(Console.ReadLine(), out var pId))
-            ////{
-            ////    Console.WriteLine("Ange 3 siffrigt Produkt ID.");
-            ////    Utility.WaitForKeyPress();
-            ////    AdminOption.Menu();
-            ////}
-            //string input = Console.ReadLine();
-            //Match match = regex.Match(input);
-
-            //if (!match.Success)
-            //{
-            //    Console.WriteLine("Ange 3 siffrigt Produkt ID.");
-            //    Utility.WaitForKeyPress();
-            //    AdminOption.Menu();
-            //}
-            //int pId = Convert.ToInt32(input);
+            Console.Write("Produkt ID: ");           
 
             string userInput = Console.ReadLine();
             bool isIdRegexOk = ErrorHandling.CheckIdRegex(userInput);
@@ -50,7 +30,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
 
 
             Console.Write("Pris: ");
-            //Decimal.TryParse(Console.ReadLine(), out var pPrice); // Se till att det inte blir fel om man använder '.' istället för ','.
+            // Se till att det inte blir fel om man använder '.' istället för ','.
             if (!Decimal.TryParse(Console.ReadLine(), out var pPrice))
             {
                 Console.ForegroundColor = ConsoleColor.Red;

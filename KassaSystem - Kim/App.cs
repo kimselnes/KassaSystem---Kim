@@ -132,6 +132,7 @@ namespace KassaSystem___Kim
             List<Discount> discountList = DiscountService.SortIntoList();
             decimal originalProductPrice = 0m;
             int[] separatedCommand;
+            bool showListOfProducts = true;
             bool notPayed = true;
 
             while (notPayed)
@@ -139,12 +140,26 @@ namespace KassaSystem___Kim
                 Console.Clear();
                 Console.WriteLine("Kassa\n");
 
+                if (showListOfProducts == true)
+                {
+                    foreach (var product in originalListOfProducts)
+                    {
+                        Console.WriteLine(
+                            $"[ {product.ProductId} " +
+                            $"{product.ProductName} " +
+                            $"{product.ProductPrice} " +
+                            $"{product.PriceType} ]");
+                    }
+                    Console.WriteLine();
+                }
+
                 //receipt.PrintToScreen2(registerProducts, originalProductPrice);
                 receipt.PrintToScreen3(registerProducts, originalListOfProducts);
 
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
                 Console.WriteLine("<produktId> <antal>");
+                Console.WriteLine("LIST (Visa/ta bort lista av produkter)");
                 Console.WriteLine("PAY\n");
                 Console.Write("Kommando:");
                 var userInput = Console.ReadLine();
@@ -162,11 +177,21 @@ namespace KassaSystem___Kim
                     Console.ResetColor();
                     notPayed = false;
                 }
+                else if (userInput.ToUpper() == "LIST")
+                {
+                    if (showListOfProducts == true)
+                    {
+                        showListOfProducts = false;
+                    }
+                    else
+                    {
+                        showListOfProducts = true;
+                    }
+                }
                 else if (true)
                 {
                     // Separate ID and AMOUNT
                     separatedCommand = Utility.SeparateCommand(userInput);
-
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
                     //var counter = 0;
                     // Checks discounts
@@ -175,7 +200,6 @@ namespace KassaSystem___Kim
                         if (discount.StartDate <= DateTime.Now.Date &&
                             discount.EndDate >= DateTime.Now.Date)
                         {
-
                             if (foundProduct.ProductId == discount.DiscountedProductId)
                             {
                                 if (discount.DiscountPrice != 0 &&
