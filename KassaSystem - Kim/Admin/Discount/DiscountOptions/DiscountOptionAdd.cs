@@ -32,7 +32,6 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             int discountIndex = discountMenu.Run();
 
             Discount discount = new Discount();
-            //int discountId = 0;
             Product discountProd = new Product();
 
             foreach (var item in sortedProducts)
@@ -49,9 +48,6 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             }
 
             Console.Clear();
-
-            //decimal discountSpecificPrice = 0m;
-            //double discountPercentPrice = 0;
 
             string prompt = $"Ordinarie pris: {discountProd.ProductPrice}";
             string[] options = ["Specifikt pris", "Ta tre, betala for 2"];
@@ -70,7 +66,7 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
                     else if (tempDec >= discountProd.ProductPrice)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Kampanjpriset får inte vara lägre än ordinariepris.");
+                        Console.WriteLine("Kampanjpriset får inte vara högre än ordinariepris.");
                         Console.ResetColor();
                         Utility.WaitForKeyPress();
 
@@ -78,27 +74,12 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
                     }
                     else
                     {
-                        //discountSpecificPrice = tempDec;
                         discount.DiscountPrice = tempDec;
                     }
                     break;
 
                 case 1:
-                    //bool tempBool = true;
                     discount.TwoForThree = true;
-
-                    //var tempBool = SetPercentagePrice();
-
-                    //if (tempDouble == 0d)
-                    //{
-                    //    DiscountOptionAdd.Run();
-                    //}
-                    //else
-                    //{
-                    //    //discountPercentPrice = tempDouble;
-                    //    discount.DiscountPercent = tempDouble;
-
-                    //}
                     break;
             }
 
@@ -129,33 +110,14 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
             }
             else
             {
-                // MAN SKA INTE KUNNA LÄGGA TILL ETT KAMPANJPRIS SOM ÄR HÖGRA ÄN ORDINARIE.
                 return discPrice;
             }
         }
-
-        //public static double SetPercentagePrice()
-        //{
-        //    Console.Write("Ange procentuellt-avdrag under kampanjen: ");
-        //    var userInput = Console.ReadLine();
-
-        //    if (!Double.TryParse(userInput, out var disPrice))
-        //    {
-        //        Console.WriteLine("Felaktigt pris");
-        //        return 0d;
-        //    }
-        //    else
-        //    {
-        //        return disPrice;
-        //    }
-        //}
 
         public static DateTime SetStartDate()
         {
             Console.WriteLine("Ange start datum");
             Console.Write("År 'yyyy': ");
-            ////var year = Convert.ToInt32(Console.ReadLine());
-            //var userInputYear = Console.ReadLine();
 
             var userInputYear = ErrorHandling.CheckYearRegex(Console.ReadLine());
 
@@ -168,28 +130,9 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
                 DiscountOptionAdd.Run();
             }
 
-            //if (userInputYear == null)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("Felaktigt år angivet");
-            //    Console.ResetColor();
-            //    Utility.WaitForKeyPress();
-            //    DiscountOptionAdd.Run();
-            //}
-            //var year = Convert.ToInt32(userInputYear);
 
             Console.Write("Månad 'MM': ");
-            //var month = Convert.ToInt32(Console.ReadLine());
-            var userInputMonth = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
-            //if (userInputMonth == null)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("Felaktig månad angivet");
-            //    Console.ResetColor();
-            //    Utility.WaitForKeyPress();
-            //    DiscountOptionAdd.Run();
-            //}
-            //var month = Convert.ToInt32(userInputMonth);
+            var userInputMonth = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());            
 
             if (!Int32.TryParse(userInputMonth, out var month) && month == 0)
             {
@@ -202,15 +145,7 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
 
             Console.Write("Dag 'dd': ");
             var userInputDay = ErrorHandling.CheckMonthDayRegex(Console.ReadLine());
-            //if (userInputDay == null)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("Felaktig dag angivet");
-            //    Console.ResetColor();
-            //    Utility.WaitForKeyPress();
-            //    DiscountOptionAdd.Run();
-            //}
-            //var day = Convert.ToInt32(userInputDay);
+
             if (!Int32.TryParse(userInputDay, out var day) && day == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;

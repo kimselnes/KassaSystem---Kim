@@ -42,7 +42,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
                     if (updateIndex == sortedProducts.IndexOf(item, i, 1))
                     {
                         oldProductId = item.ProductId;
-                        // Vill inte den nya produkten kollar sig själv.
+                        // Don't want the new product to compare to itself.
                         oldSortedProducts.RemoveAt(i);
                         updateProduct = UpdateProduct.Update(item);
                     }
@@ -62,9 +62,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
                 Console.WriteLine("Återvänder till menyn...");
                 Utility.WaitForKeyPress();
 
-                // Kanske ha en mer specifikt för denna case.
                 AdminOption.Menu();
-                //AdminOptionUpdate.Run();
             }
 
             Console.WriteLine();

@@ -25,7 +25,6 @@ namespace KassaSystem___Kim.Admin.AdminOptions
                 tempProduct = $"{item.ProductId} {item.ProductName}";
                 tempDeleteOptions.Add(tempProduct);
             }
-            //tempDeleteOptions.Add("Avbryt");
             string[] deleteOptions = tempDeleteOptions.ToArray();
 
             Menu deleteListed = new Menu(prompt, deleteOptions);

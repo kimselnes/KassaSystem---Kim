@@ -54,19 +54,6 @@ namespace KassaSystem___Kim.Products
 
                         Console.WriteLine();
                         Utility.WaitForKeyPress();
-
-                        // Innan jag lade till REGEX
-                        //if (Int32.TryParse(Console.ReadLine(), out var newId))
-                        //{
-                        //    var tempId = product.ProductId;
-                        //    product.ProductId = newId;
-
-                        //    Console.WriteLine($"\nDu har uppdaterat Produkt ID.\n" +
-                        //        $"{tempId} -> {product.ProductId}");
-
-                        //    Console.WriteLine();
-                        //    Utility.WaitForKeyPress();
-                        //}
                         break;
 
                     case 1: // Input new ProductName
@@ -148,14 +135,11 @@ namespace KassaSystem___Kim.Products
             while (updating);
 
             return notUpdatedProduct;
-
         }
 
         public static void ReplaceUpdated(int oldProduct, Product newProduct,
             List<Product> sortedList)
-        {
-            // Byt ut gamla product i .csv med den nya. INDEX, (updateIndex i App.cs)
-
+        {            
             foreach (var item in sortedList)
             {
                 if (item.ProductId == oldProduct)
@@ -189,9 +173,9 @@ namespace KassaSystem___Kim.Products
             }
         }
 
+        // Har visst två av denna metod i olika klasser.
         public static bool CheckDuplicate(List<Product> sortedList, Product newProduct)
         {
-            // Måste kolla ID
             foreach (var item in sortedList)
             {
                 if (item.ProductId == newProduct.ProductId)
@@ -206,5 +190,4 @@ namespace KassaSystem___Kim.Products
             return false;
         }
     }
-
 }

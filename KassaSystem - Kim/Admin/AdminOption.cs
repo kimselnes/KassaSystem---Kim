@@ -12,9 +12,6 @@ namespace KassaSystem___Kim.Admin
     {
         public static void Menu()
         {
-            // Här ska man kunna lägga till, ta bort, ändra och läsa alla produkter.
-            // Man ska även kunna lägga till och ta bort KAMPANJER.
-            // (Eventuellt att man måste skriva in korrekt användarnamn och lösen.)
             App app = new App();
 
             string prompt = "Admin Verktyg";
@@ -27,7 +24,6 @@ namespace KassaSystem___Kim.Admin
             switch (selectedIndex)
             {
                 case 0:
-                    // Lägga till prod.
                     AdminOptionAdd.Run();
                     app.RunMainMenu();
                     break;
@@ -38,7 +34,6 @@ namespace KassaSystem___Kim.Admin
                     break;
 
                 case 2:
-                    // Ta bort prod.
                     AdminOptionDelete.Run();
                     Menu();
                     Utility.WaitForKeyPress();
@@ -47,6 +42,7 @@ namespace KassaSystem___Kim.Admin
                 case 3:
                     AdminOptionRead.Run();
                     break;
+
                 case 4:
                     DiscountOption.Menu();
                     break;

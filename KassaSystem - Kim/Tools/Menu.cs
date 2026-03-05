@@ -20,13 +20,12 @@ namespace KassaSystem___Kim.Tools
         private int SelectedIndex { get; set; }
         private string[] Options { get; set; }
         private string Prompt { get; set; }
-        //private Object Object { get; set; }
+
         public Menu(string prompt, string[] options)
         {
             Prompt = prompt;
             Options = options;
             SelectedIndex = 0;
-            //Object = @object;
         }
 
         private void DisplayOptions()

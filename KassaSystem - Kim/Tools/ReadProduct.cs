@@ -10,10 +10,6 @@ namespace KassaSystem___Kim.Tools
         static ReadProduct()
         {
         }
-        //public ReadProduct(Product product)
-        //{
-
-        //}
 
         public  List<Product> SortIntoList()
         {
@@ -24,7 +20,7 @@ namespace KassaSystem___Kim.Tools
             using (StreamReader streamReader = new StreamReader(
                     File.OpenRead(filePath)))
             {
-                while (!streamReader.EndOfStream) // EndOfStream will indicate when stream is the end of file.
+                while (!streamReader.EndOfStream)
                 {
                     var line = streamReader.ReadLine();
                     var properties = line.Split(';');

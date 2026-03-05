@@ -21,14 +21,6 @@ namespace KassaSystem___Kim.Receipt
             DateAndTime = DateTime.Now;
             Separator = "****************************************";
         }
-        //public Receipts(List<Product> productList, int amount)
-        //{
-        //    DateAndTime = DateTime.Now;
-        //    ProductList = productList;
-        //    Amount = amount;
-        //    //TotalPrice = totalPrice;
-        //    Separator = "********************";
-        //}
 
         public void AddTotalPrice(Product product)
         {
@@ -43,58 +35,7 @@ namespace KassaSystem___Kim.Receipt
             }
         }
 
-
-        public void PrintToScreen2(List<Product> list, decimal originalPrice) // NYVERSION som tar med KAMPANJER
-        {
-            Console.WriteLine("KVITTO");
-            Console.WriteLine(DateAndTime);
-
-            foreach (var product in list)
-            {
-                if (product.HasDiscount)
-                {
-                    if (product.HasTwoThreeDiscount &&
-                        product.ProductPrice != originalPrice)
-                    {
-                        // Fixa så att var tredje vara blir gratis.
-                        int threeForTwo = product.Amount / 3;
-                        int threeForTwoResult = product.Amount - threeForTwo;
-
-                        Console.WriteLine(
-                        $"{product.ProductName} {threeForTwoResult} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * threeForTwoResult}\n" +
-                        $"  -Ordinarie: {product.Amount} * {originalPrice} = {originalPrice * product.Amount}");
-                    }
-                    else if (product.HasTwoThreeDiscount)
-                    {
-                        // Rabatt pris
-                        Console.WriteLine(
-                        $"{product.ProductName} {product.Amount} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * product.Amount}");
-                    }
-                    else if (product.ProductPrice != originalPrice)
-                    {
-                        Console.WriteLine(
-                        $"{product.ProductName} {product.Amount} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * product.Amount}\n" +
-                        $"  -Ordinariepris: {originalPrice * product.Amount}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(
-                        $"{product.ProductName} {product.Amount} * " +
-                        $"{product.ProductPrice} = " +
-                        $"{product.ProductPrice * product.Amount}");
-                }
-            }
-
-            Console.WriteLine($"Total: {TotalPrice} kr");
-        }
-        public void PrintToScreen3(List<Product> list, List<Product> originalList) // NYVERSION som tar med KAMPANJER
+        public void PrintToScreen(List<Product> list, List<Product> originalList) // NYVERSION som tar med KAMPANJER
         {
             var originalPrice = 0m;
             Console.WriteLine("KVITTO");
@@ -153,60 +94,6 @@ namespace KassaSystem___Kim.Receipt
 
             Console.WriteLine($"Total: {TotalPrice} kr");
         }
-
-        public void PrintToScreen(List<Product> list)
-        {
-            Console.WriteLine("KVITTO");
-            Console.WriteLine(DateAndTime);
-
-            foreach (var product in list)
-            {
-                Console.WriteLine(
-                    $"{product.ProductName} {product.Amount} * " + // ändrade amount till product.Amount
-                    $"{product.ProductPrice} = " +
-                    $"{product.ProductPrice * product.Amount}"); // ändrade amount till product.Amount
-
-                //if ()
-                //{
-                //    TotalPrice += (product.ProductPrice * product.Amount); // ändrade amount till product.Amount
-                //}
-            }
-
-            Console.WriteLine($"Total: {TotalPrice} kr");
-
-            //if (list == null || amount == 0)
-            //{
-            //    foreach (var product in list)
-            //    {
-            //        Console.WriteLine(
-            //            $"{product.ProductName} {Amount} * " +
-            //            $"{product.ProductPrice} = " +
-            //            $"{product.ProductPrice * Amount}");
-            //        TotalPrice += (product.ProductPrice * Amount);
-            //    }
-            //}
-            //if (list != null)
-            //{
-            //    //for (int i = 0; i < list.Count; i++)
-            //    //{
-            //    //    Console.WriteLine(
-            //    //        $"{product.ProductName} {amount} * " +
-            //    //        $"{product.ProductPrice} = " +
-            //    //        $"{product.ProductPrice * amount}");
-            //    //    TotalPrice += (product.ProductPrice * amount);
-            //    //}
-            //}
-        }
-
-        //public List<Product> AddProductToList(Product product, int amount)
-        //{
-        //    product.Amount = amount;
-        //    List<Product> list = new List<Product>();
-        //    list.Add(product);
-
-        //    ProductList = list;
-        //    return ProductList; 
-        //}
 
         public static Product FindProduct(int productId)
         {
@@ -292,14 +179,6 @@ namespace KassaSystem___Kim.Receipt
                     }
 
                 }
-                //foreach (var product in list)
-                //{
-                //    textToAppend += $"{product.ProductName} {product.Amount} * " +
-                //            $"{product.ProductPrice} = " +
-                //            $"{product.ProductPrice * product.Amount}" + Environment.NewLine;
-
-                //    TotalPrice += (product.ProductPrice * product.Amount);
-                //}
                 textToAppend += $"Total: {TotalPrice} kr{Environment.NewLine}{Separator}";
 
                 File.AppendAllText(filePath, textToAppend + Environment.NewLine);
@@ -336,18 +215,6 @@ namespace KassaSystem___Kim.Receipt
             {
                 streamWriter.WriteLine(serialNumber.ToString());
             }
-        }
-
-
-        //public void AddProductToReceiptFile(int productId, int amount)
-        //{
-        //    var products = ReadProduct.ReadSortProductList();
-
-        //    foreach (var product in product)
-        //    {
-        //        product.ProductName = properties[1];
-        //        product.ProductPrice = Decimal.Parse(properties[2]);
-        //    }
-        //}
+        }        
     }
 }

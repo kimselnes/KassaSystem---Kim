@@ -15,11 +15,6 @@ namespace KassaSystem___Kim
 
         public void Start()
         {
-            // if catches error do Run() again?
-            // "error message"
-            // WaitForKeyPress()
-            // Run()
-
             Console.Title = "Kim's Kassasystem";
 
             RunMainMenu();
@@ -28,7 +23,7 @@ namespace KassaSystem___Kim
         public void RunMainMenu()
         {
             string prompt = "Kassa System";
-            string[] options = ["Ny kund", "Admin meny", "Avsluta", "TEST"]; // TA BORT TEST.
+            string[] options = ["Ny kund", "Admin meny", "Avsluta"];
 
             Menu mainMenu = new Menu(prompt, options);
             int selectedIndex = mainMenu.Run();
@@ -37,8 +32,6 @@ namespace KassaSystem___Kim
             {
                 case 0:
                     Register();
-                    //Utility.WaitForKeyPress();
-                    //RunMainMenu();
                     break;
 
                 case 1:
@@ -48,81 +41,11 @@ namespace KassaSystem___Kim
                 case 2:
                     Utility.ExitApp();
                     break;
-
-                case 3:
-                    // Här TESTAR jag klasser/metoder under utvecklingen. TA BORT!!
-                    DiscountOption.Menu();
-                    Utility.WaitForKeyPress();
-                    break;
             }
         }
 
-        //private void Register()
-        //{
-        //    // Kassan
-        //    // Här sker betalningen.
-        //    // Om man matar in <productId> och <amount> som "300 4" - (MÅSTE SKRIVAS PÅ DETTA VIS OCH HA MELLANSLAG)
-        //    // behöver man separera numre(r)na  och identifiera de som productId och amount.
-        //    // Typ lägga i en array och se [0] som productId och [1] som amount.
-        //    var receipt = new Receipts();
-        //    var registerProducts = new List<Product>();
-        //    var foundProduct = new Product();
-        //    int[] separatedCommand;
-        //    bool notPayed = true;
-
-        //    while (notPayed)
-        //    {
-        //        Console.Clear();
-        //        Console.WriteLine("Kassa\n");
-
-        //        receipt.PrintToScreen(registerProducts, foundProduct.Amount);
-
-        //        // UserINPUT
-        //        Console.WriteLine("\nKommandon:");
-        //        Console.WriteLine("<produktId> <Antal>");
-        //        Console.WriteLine("PAY\n");
-        //        Console.Write("Kommando:");
-        //        var userInput = Console.ReadLine();
-
-        //        if (userInput == "PAY")
-        //        {
-        //            Receipts receipts = new Receipts();
-        //            receipts.AddReceiptToFile(registerProducts, foundProduct.Amount);
-        //            notPayed = false;
-        //        }
-        //        else if (true)
-        //        {
-        //            // Separate ID and AMOUNT
-        //            separatedCommand = Utility.SeparateCommand(userInput);
-
-        //            foundProduct = Receipts.FindProduct(separatedCommand[0]);
-        //            if (foundProduct.ProductName != null)
-        //            {
-        //                foundProduct.Amount = separatedCommand[1];
-        //                registerProducts.Add(foundProduct);
-        //            }
-        //            else
-        //            {
-
-        //            }
-
-        //        }
-        //        //receipt.PrintToScreen(foundProduct, separatedCommand[1]);
-        //    }
-
-
-
-        //Console.WriteLine();
-        //Utility.WaitForKeyPress();
-        //RunMainMenu();
-        //}
-        private void Register() // KOPIA, SKA SEI FALL JAG KAN LÖSA AMOUNT ISSUE.
+        private void Register()
         {
-            // Kassan
-            // Här sker betalningen.
-            // Om man matar in <productId> och <amount> som "300 4" - (MÅSTE SKRIVAS PÅ DETTA VIS OCH HA MELLANSLAG)
-            // behöver man separera numre(r)na  och identifiera de som productId och amount.
-            // Typ lägga i en array och se [0] som productId och [1] som amount.
             var receipt = new Receipts();
             int serialNumber = receipt.GetSerialNumber();
             var registerProducts = new List<Product>();
@@ -130,7 +53,7 @@ namespace KassaSystem___Kim
             var originalListOfProducts = readProducts.SortIntoList();
             var foundProduct = new Product();
             List<Discount> discountList = DiscountService.SortIntoList();
-            decimal originalProductPrice = 0m;
+            //decimal originalProductPrice = 0m;
             int[] separatedCommand;
             bool showListOfProducts = true;
             bool notPayed = true;
@@ -153,8 +76,7 @@ namespace KassaSystem___Kim
                     Console.WriteLine();
                 }
 
-                //receipt.PrintToScreen2(registerProducts, originalProductPrice);
-                receipt.PrintToScreen3(registerProducts, originalListOfProducts);
+                receipt.PrintToScreen(registerProducts, originalListOfProducts);
 
                 // UserINPUT
                 Console.WriteLine("\nKommandon:");
@@ -193,7 +115,7 @@ namespace KassaSystem___Kim
                     // Separate ID and AMOUNT
                     separatedCommand = Utility.SeparateCommand(userInput);
                     foundProduct = Receipts.FindProduct(separatedCommand[0]);
-                    //var counter = 0;
+
                     // Checks discounts
                     foreach (var discount in discountList)
                     {
@@ -231,7 +153,6 @@ namespace KassaSystem___Kim
                 }
             }
 
-            //Console.WriteLine();
             Utility.WaitForKeyPress();
             RunMainMenu();
         }

@@ -23,23 +23,12 @@ namespace KassaSystem___Kim.Tools
         public static int[] SeparateCommand(string command)
         {
             // EX: "300 4"
-            //int pId = 0;
-            //int amount = 0;
             int[] pIdAmount = new int[2];
             string[] tempStrings = new string[2];
-            //string tempStr0;
-            //string tempStr1;
             tempStrings = command.Split(" ");
-
-            //foreach (var item in tempStrings)
-            //{
-            //    pIdAmount = Int32.Parse(item);
-            //}
 
             for (int i = 0; i <= 1; i++)
             {
-                //pIdAmount[i] = Convert.ToInt32(tempStrings[i]); 
-                //pIdAmount[i] = Int32.Parse(tempStrings[i]);
                 if (tempStrings.Length != 2)
                 {
                     Console.WriteLine("Felaktigt kommand.");

@@ -9,12 +9,6 @@ namespace KassaSystem___Kim.Tools
 {
     internal static class ErrorHandling
     {
-        public static  void RegisterProductIdAmount()
-        {
-            
-        }        
-
-
         public static bool CheckIdRegex(string userInput)
         {
             string regexPattern = @"\b[0-9]{3}\b";
@@ -33,7 +27,8 @@ namespace KassaSystem___Kim.Tools
                 return true;
             }
         }
-        public static string CheckYearRegex(string userInput) // PRova med STRING som return
+
+        public static string CheckYearRegex(string userInput)
         {
             string regexPattern = @"\b[0-9]{4}\b";
             Regex regex = new(regexPattern);
@@ -42,8 +37,6 @@ namespace KassaSystem___Kim.Tools
 
             if (!match.Success)
             {
-                //Console.WriteLine("Ange 4 siffrigt År.");
-                //Utility.WaitForKeyPress();
                 return null;
             }
             else
@@ -51,7 +44,8 @@ namespace KassaSystem___Kim.Tools
                 return userInput;
             }
         }
-        public static string CheckMonthDayRegex(string userInput) // PRova med STRING som return
+
+        public static string CheckMonthDayRegex(string userInput)
         {
             string regexPattern = @"\b[0-9]{2}\b";
             Regex regex = new(regexPattern);
@@ -60,8 +54,6 @@ namespace KassaSystem___Kim.Tools
 
             if (!match.Success)
             {
-                //Console.WriteLine("Ange 2 siffrig månad/dag.");
-                //Utility.WaitForKeyPress();
                 return null;
             }
             else
@@ -69,28 +61,9 @@ namespace KassaSystem___Kim.Tools
                 return userInput;
             }
         }
-        //public static bool CheckYearRegex(string userInput)
-        //{
-        //    string regexPattern = @"\b[0-9]{4}\b";
-        //    Regex regex = new(regexPattern);
-
-        //    Match match = regex.Match(userInput);
-
-        //    if (!match.Success)
-        //    {
-        //        Console.WriteLine("Ange 4 siffrigt År.");
-        //        Utility.WaitForKeyPress();
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        return true;
-        //    }
-        //}
 
         public static bool CheckDuplicate(List<Product> sortedList, Product newProduct)
         {
-            // Måste kolla ID
             foreach (var item in sortedList)
             {
                 if (item.ProductId == newProduct.ProductId)
@@ -119,11 +92,5 @@ namespace KassaSystem___Kim.Tools
                 return false;
             }
         }
-        //public static int ConvertIdToInt(string userInput)
-        //{
-        //    int pId = Convert.ToInt32(userInput);
-        //    return pId;
-        //}
-
     }
 }

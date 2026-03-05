@@ -58,7 +58,6 @@ namespace KassaSystem___Kim.Admin.Discount.DiscountOptions
                     DiscountOption.Menu();
                     break;
             }
-
         }
     }
 }
