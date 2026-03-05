@@ -53,7 +53,6 @@ namespace KassaSystem___Kim
             var originalListOfProducts = readProducts.SortIntoList();
             var foundProduct = new Product();
             List<Discount> discountList = DiscountService.SortIntoList();
-            //decimal originalProductPrice = 0m;
             int[] separatedCommand;
             bool showListOfProducts = true;
             bool notPayed = true;
@@ -127,11 +126,6 @@ namespace KassaSystem___Kim
                                 if (discount.DiscountPrice != 0 &&
                                     discount.DiscountPrice < foundProduct.ProductPrice) // ADDED && discount.DiscountPrice < foundProduct.ProductPrice
                                 {
-                                    //if (counter == 0)
-                                    //{
-                                    //    originalProductPrice = foundProduct.ProductPrice;
-                                    //    counter++;
-                                    //}
                                     foundProduct.ProductPrice = discount.DiscountPrice;
                                     foundProduct.HasDiscount = true;
                                 }
