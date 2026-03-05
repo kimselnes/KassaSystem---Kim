@@ -90,6 +90,13 @@ namespace KassaSystem___Kim.Products
                             Console.WriteLine();
                             Utility.WaitForKeyPress();
                         }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Du angav fel pris. Använd ',' inte '.'");
+                            Console.ResetColor();
+                            Utility.WaitForKeyPress();
+                        }
                         break;
 
                     case 3: // Input new Price Type
