@@ -30,7 +30,7 @@ namespace KassaSystem___Kim.Admin.AdminOptions
 
 
             Console.Write("Pris: ");
-            // Se till att det inte blir fel om man använder '.' istället för ','.
+
             if (!Decimal.TryParse(Console.ReadLine(), out var pPrice))
             {
                 Console.ForegroundColor = ConsoleColor.Red;

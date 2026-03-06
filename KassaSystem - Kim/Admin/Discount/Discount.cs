@@ -13,20 +13,8 @@ namespace KassaSystem___Kim.Admin.Discount
         public bool TwoForThree { get; set; } = false;
 
         public Discount()
-        {
-            
+        {            
         }
-
-        // HAR 0 REFERENSER
-        //public Discount(DateTime startDate, DateTime endDate,
-        //    int discountedId, decimal discountPrice, bool twoForThree)
-        //{
-        //    StartDate = startDate;
-        //    EndDate = endDate;
-        //    DiscountedProductId = discountedId;
-        //    DiscountPrice = discountPrice;
-        //    TwoForThree = twoForThree;
-        //}
     }
 
 }

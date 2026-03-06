@@ -11,8 +11,8 @@ namespace KassaSystem___Kim.Receipt
     internal class Receipts
     {
         public DateTime DateAndTime { get; set; }
-        public List<Product> ProductList { get; set; }
-        public int Amount { get; set; }
+        public List<Product> ProductList { get; set; } // Ingen referens i programmet men jag vågar inte ta bort just nu, precis innan inlämning...
+        public int Amount { get; set; } // Ingen referens i programmet men jag vågar inte ta bort just nu, precis innan inlämning...
         public decimal TotalPrice { get; set; }
         public string Separator { get; set; }
 

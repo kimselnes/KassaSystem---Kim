@@ -7,11 +7,11 @@ namespace KassaSystem___Kim.Tools
 {
     internal class ReadProduct
     {
-        static ReadProduct()
-        {
-        }
+        //static ReadProduct()
+        //{
+        //}
 
-        public  List<Product> SortIntoList()
+        public List<Product> SortIntoList()
         {
             string filePath = "../../../Products/ProductText/Products.csv";
 
